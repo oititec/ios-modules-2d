@@ -1,4 +1,4 @@
-# FaceCaptcha - Guia de customização
+# Guia de customização - FaceCaptcha
 
 O SDK do OILiveness2D permite a customização de todas as telas do fluxo do FaceCaptcha, para isto, é necessária a criação de objetos do tipo `UIView` (via código ou via Interface Builder) que implementem os protocolos definidos para cada tela.
 
@@ -38,7 +38,7 @@ public protocol FaceCaptchaCustomIntructionsView: UIView {
 | (**2**) | `continueButton` | Botão que inicia o fluxo de reconhecimento facial. |
 
 <br/>
-<img src="Images/fc_instructions.png" width="432" height="396" />
+<img src="../Images/fc_instructions.png" width="432" height="396" />
 
 ---
 
@@ -75,8 +75,8 @@ public protocol FaceCaptchaView: UIView {
 
 <br/>
 <div>
-    <img src="Images/fc_liveness_1.png" width="432" height="396" />
-    <img src="Images/fc_liveness_2.png" width="432" height="396" />
+    <img src="../Images/fc_liveness_1.png" width="432" height="396" />
+    <img src="../Images/fc_liveness_2.png" width="432" height="396" />
 </div>
 <br/>
 
@@ -120,7 +120,7 @@ public protocol FaceCaptchaCustomPictureValidationView: UIView {
 | (**5**) | `confirmButton` | Botão para confirmar a imagem capturada e prosseguir com o processo dela. |
 
 <br/>
-<img src="Images/fc_picture_validation.png" width="432" height="396" />
+<img src="../Images/fc_picture_validation.png" width="432" height="396" />
 
 ---
 
@@ -128,7 +128,7 @@ public protocol FaceCaptchaCustomPictureValidationView: UIView {
 Essa view deve estar em conformidade com o tipo ``FaceCaptchaCustomProcessResultView`` que é um ``typealias`` para o tipo ``UIView``
 
 <br/>
-<img src="Images/fc_process_result.png" width="432" height="396" />
+<img src="../Images/fc_process_result.png" width="432" height="396" />
 
 ---
 
@@ -162,5 +162,5 @@ public enum FaceCaptchaResultType {
 
 | **Tipo de resultado** | **Exemplo de tela** |
 |:----------------------|:--------------------|
-| Sucesso | <img src="Images/fc_result_success.png" width="432" height="396" /> |
-| Erro | <img src="Images/fc_result_error.png" width="432" height="396" /> |
+| Sucesso | <img src="../Images/fc_result_success.png" width="432" height="396" /> |
+| Erro | <img src="../Images/fc_result_error.png" width="432" height="396" /> |

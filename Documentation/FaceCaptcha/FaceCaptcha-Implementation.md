@@ -1,4 +1,4 @@
-# Liveness - Prova de Vida
+# Guia de implementação - FaceCaptcha
 
 Guia de implementação do FaceCaptcha para iOS.
 

@@ -1,4 +1,4 @@
-# Documentoscopia
+# Guia de implementação - Documentoscopia
 
 Guia de implementação da Documentoscopia para iOS.
 
