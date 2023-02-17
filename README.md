@@ -40,7 +40,6 @@ No `Info.plist` do projeto, adicione a descrição de uso de câmera (`Privacy -
 
 ![Info.plist Camera Permission](Documentation/Images/info_plist_camera_permission.jpg)
 
-
 ###  FaceCaptcha
 As instruções de implementação do **FaceCaptcha** podem ser acessadas nos links abaixo:
 
@@ -48,7 +47,6 @@ As instruções de implementação do **FaceCaptcha** podem ser acessadas nos li
   - [Fluxo de telas](Documentation/FaceCaptcha/FaceCaptcha-ScreensFlow.md);
   - [Guia de implementação](Documentation/FaceCaptcha/FaceCaptcha-Implementation.md);
   - [Guia de customização](Documentation/FaceCaptcha/FaceCaptcha-Customization.md).
-
 
 ###  Documentoscopia
 
@@ -58,6 +56,14 @@ As instruções de implementação da **Documentoscopia** podem ser acessadas no
   - [Fluxo de telas](Documentation/Documentscopy/Documentscopy-ScreensFlow.md);
   - [Guia de implementação](Documentation/Documentscopy/Documentscopy-Implementation.md);
   - [Guia de customização](Documentation/Documentscopy/Documentscopy-Customization.md).
+
+### Changelog
+- Alterações a partir versão 1.0.0 podem ser encontradas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
+
+### Breaking Changes
+- [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness3D
+
+<br/>
 
 >⚠️ **Para conhecer mais sobre Liveness, consulte [este link.](https://certifaceid.readme.io/docs/liveness-detection-vs-atualizada)**
 
