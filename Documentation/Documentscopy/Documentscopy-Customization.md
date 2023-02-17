@@ -20,14 +20,16 @@ Todas as *views* customizadas são passadas via construtor da classe ``Documents
 let controller = DocumentscopyViewController(
     appKey: appKey, baseURL: baseURL, delegate: self,
     customInstructionView: CustomInstructionView(),
-    customCameraPermissionView: CustomCameraPermissionView(),
     customView: CustomView(),
     customLoadingView: CustomLoadingView(),
-    customResultView: CustomResultView()
+    customResultView: CustomResultView(),
+    customCameraPermissionView: CustomCameraPermissionView()
 )
 
 ```
 **Caso qualquer um seja `nil`, será usado o *layout* padrão.**
+
+---
 
 ## 1. Tela inicial
 
@@ -49,7 +51,7 @@ public protocol DocumentscopyCustomInstructionView: UIView {
 | (**3**) | `viewRG` | View que terá a ação de iniciar o fluxo de captura do documento RG. |
 
 <br/>
-<img src="Images/dc_instructions.png" width="432" height="396" />
+<img src="../Images/Documentscopy/dc_instructions.png" width="432" height="396" />
 
 ---
 
@@ -99,8 +101,8 @@ public protocol DocumentscopyCustomView: UIView {
 
 <br/>
 <div>
-    <img src="Images/dc_camera_1.png" width="432" height="396" />
-    <img src="Images/dc_camera_3.png" width="432" height="396" />
+    <img src="../Images/Documentscopy/dc_camera_1.png" width="432" height="396" />
+    <img src="../Images/Documentscopy/dc_camera_2.png" width="432" height="396" />
 <div/>
     
 **DocumentscopyCameraPreviewView**
@@ -138,11 +140,11 @@ public enum DocumentscopyFocusIndicator {
 Essa view deve estar em conformidade com o tipo ``DocumentscopyCustomLoadingView`` que é um ``typealias`` para o tipo ``UIView``
 
 <br/>
-<img src="Images/fc_process_result.png" width="432" height="396" />
+<img src="../Images/Documentscopy/dc_loading.png" width="432" height="396" />
 
 ---
 
-## 4. Tela de Resultado do Processamento
+## 4. Tela de resultado do processamento
     
 ### `customResultView`
 
@@ -165,9 +167,9 @@ public protocol DocumentscopyCustomResultView: UIView {
 
 | **Tipo de resultado** | **Exemplo de tela** |
 |:----------------------|:--------------------|
-| Sucesso | <img src="Images/dc_result_success.png" width="432" height="396" /> |
-| Tente Novamente | <img src="Images/dc_result_tryagain.png" width="432" height="396" /> |
-| Erro | <img src="Images/dc_result_error.png" width="432" height="396" /> |
+| Sucesso | <img src="../Images/Documentscopy/dc_result_success.png" width="432" height="396" /> |
+| Tente Novamente | <img src="../Images/Documentscopy/dc_result_tryagain.png" width="432" height="396" /> |
+| Erro | <img src="../Images/Documentscopy/dc_result_error.png" width="432" height="396" /> |
 
 **DocumentscopyResultType**
 
@@ -207,12 +209,6 @@ public protocol DocumentscopyCustomCameraPermissionView: UIView {
 
 <br/>
 <div>
-    <img src="Images/camera_permission_1.png" width="432" height="396" />
-    <img src="Images/camera_permission_2.png" width="432" height="396" />
+    <img src="../Images/camera_permission_1.png" width="432" height="396" />
+    <img src="../Images/camera_permission_2.png" width="432" height="396" />
 <div/>
-
----
-    
-## Observações
-
-No projeto Sample, neste mesmo repositório, encontra-se um exemplo de implementação. Recomenda-se usar como ponto de partida as views inclusas neste sample, modificando-as de acordo com a necessidade.

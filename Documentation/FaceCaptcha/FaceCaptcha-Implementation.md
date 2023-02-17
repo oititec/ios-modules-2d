@@ -65,23 +65,32 @@ Este protocolo contém três métodos:
 public enum FaceCaptchaError {
     /// App Key inválido.
     case invalidAppKey
+
     /// Certiface offline.
     case certifaceOff
+
     /// Não foi concedida permissão de acesso à câmera do aparelho.
     case noCameraPermission
+
     /// Sem conexão à Internet.
     case noInternetConnection
+
     /// Chamada telefônica em andamento. Não é possível iniciar o desafio durante uma chamada telefônica.
     case phoneCallInProgress
+
     /// Erro na requisição de validação dos desafios.
     case validationError
+
     /// App foi minimizado durante o uso do FaceCaptcha, isso faz com que o desafio seja encerrado.
     case challengeInterrupted
-    /// Erro inesperado em algum request
+
+    /// Erro inesperado em algum request.
     case requestError
-    /// Falha em configurar câmera
+
+    /// Falha em configurar câmera.
     case errorCameraSetup
-    /// Erro ao capturar foto
+    
+    /// Erro ao capturar foto.
     case errorCapturePicture
 }
 ```
