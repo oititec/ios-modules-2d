@@ -1,0 +1,614 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OIComponents
+import AVFoundation
+import CoreGraphics
+import Foundation
+import OICommons
+@_exported import OIComponents
+import Swift
+import UIKit.UIButton
+import UIKit.UIImage
+import UIKit
+import UIKit.UIView
+import UIKit.UIViewController
+import _Concurrency
+public struct LinkComponentModel {
+  public init(text: Swift.String, icon: OIComponents.ComponentIcon, size: OIComponents.ComponentSize, normalStyle: OIComponents.LinkComponentStyles, highlightedStyle: OIComponents.LinkComponentStyles)
+}
+public struct SearchFieldComponentModel {
+  public init(searchImage: UIKit.UIImage?, cancelImage: UIKit.UIImage?, hasButton: Swift.Bool, placeholder: Swift.String)
+  public init(searchImage: UIKit.UIImage?, cancelImage: UIKit.UIImage?, hasButton: Swift.Bool)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class SwitchComponent : UIKit.UIView {
+  public typealias ValueChangedHandler = (_ value: Swift.Bool) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) public var isDisabled: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var isSelected: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) public func setSelected(to value: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func addObserverToValueChanged(handler: @escaping OIComponents.SwitchComponent.ValueChangedHandler)
+  @objc deinit
+}
+extension OIComponents.ConstraintBuilder {
+  public func trailing(anchor uiViewAnchor: UIKit.NSLayoutXAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func trailing(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func trailing(anchor layoutGuide: UIKit.UILayoutGuide, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+public struct ButtonComponentModel {
+  public init(title: Swift.String, size: OIComponents.ComponentSize, icon: OIComponents.ComponentIcon, loadingIcon: UIKit.UIImage? = nil, highlightedStyle: OIComponents.ButtonComponentStyles, normalStyle: OIComponents.ButtonComponentStyles, disabledStyle: OIComponents.ButtonComponentStyles)
+  public init(size: OIComponents.ComponentSize, icon: OIComponents.ComponentIcon, loadingIcon: UIKit.UIImage? = nil, highlightedStyle: OIComponents.ButtonComponentStyles, normalStyle: OIComponents.ButtonComponentStyles, disabledStyle: OIComponents.ButtonComponentStyles)
+}
+public struct ButtonComponentAppearance {
+}
+@objc @_Concurrency.MainActor(unsafe) open class InstructionsView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) final public let backSquareButton: OIComponents.SquareButtonComponent
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.InstructionsModel)
+  @available(*, unavailable)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) open func setupExtraViews() -> UIKit.UIView
+  @_Concurrency.MainActor(unsafe) open func setupConstraintsOfExtraViews()
+  @objc deinit
+}
+extension OIComponents.DesignTokens {
+  public struct Shadow {
+    public static let level1: OIComponents.DesignTokens.Shadow
+    public static let level2: OIComponents.DesignTokens.Shadow
+    public static let level3: OIComponents.DesignTokens.Shadow
+    public static let level4: OIComponents.DesignTokens.Shadow
+  }
+}
+public struct InstructionsModel {
+  public let mainImage: UIKit.UIImage?
+  public let title: Swift.String
+  public let caption: Swift.String
+  public init(mainImage: UIKit.UIImage?, title: Swift.String, caption: Swift.String)
+}
+extension OIComponents.ViewBuilder {
+  public struct View {
+    public static func create(with frame: CoreGraphics.CGRect) -> OIComponents.ViewBuilder.View
+    public static func create(with size: CoreGraphics.CGSize) -> OIComponents.ViewBuilder.View
+    public static func create() -> OIComponents.ViewBuilder.View
+    public func build() -> UIKit.UIView
+    public func backgroundColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.View
+    public func backgroundColor(_ color: UIKit.UIColor, opacity: CoreGraphics.CGFloat = 1.0) -> OIComponents.ViewBuilder.View
+    public func borderColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.View
+    public func borderWidth(_ width: CoreGraphics.CGFloat) -> OIComponents.ViewBuilder.View
+    public func cornerRadius(_ radius: CoreGraphics.CGFloat) -> OIComponents.ViewBuilder.View
+    @available(iOS 11.0, *)
+    public func cornerRadius(_ radius: CoreGraphics.CGFloat, edges: QuartzCore.CACornerMask) -> OIComponents.ViewBuilder.View
+    public func masksToBounds(_ value: Swift.Bool = true) -> OIComponents.ViewBuilder.View
+    public func customContent(contentBuilder: @escaping (UIKit.UIView) -> Swift.Void) -> OIComponents.ViewBuilder.View
+  }
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class OitiHeaderComponent : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var optionsAction: () -> Swift.Void
+  @_Concurrency.MainActor(unsafe) final public let optionsButtonIdentifier: Swift.String
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.OitiHeaderComponentModel)
+  @objc deinit
+}
+extension OIComponents.ConstraintBuilder {
+  public func height(anchor uiViewAnchor: UIKit.NSLayoutDimension, multiplier: CoreGraphics.CGFloat = 1.0) -> OIComponents.ConstraintBuilder
+  public func height(anchor uiViewAnchor: UIKit.UIView, multiplier: CoreGraphics.CGFloat = 1.0) -> OIComponents.ConstraintBuilder
+  public func height(constant: CoreGraphics.CGFloat) -> OIComponents.ConstraintBuilder
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class SearchFieldComponent : UIKit.UIView, UIKit.UITextFieldDelegate {
+  public typealias SearchHandler = (_ component: OIComponents.SearchFieldComponent, _ searchText: Swift.String) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var isFocused: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.SearchFieldComponentModel)
+  @_Concurrency.MainActor(unsafe) public func onSearchSubmit(handler: @escaping OIComponents.SearchFieldComponent.SearchHandler)
+  @_Concurrency.MainActor(unsafe) public func onValueChange(handler: @escaping OIComponents.SearchFieldComponent.SearchHandler)
+  @_Concurrency.MainActor(unsafe) public func onSearchReturn(handler: @escaping OIComponents.SearchFieldComponent.SearchHandler)
+  @_Concurrency.MainActor(unsafe) public func setEnabled(_ enabledValue: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidChangeSelection(_ textField: UIKit.UITextField)
+  @objc deinit
+}
+public protocol ButtonLayoutContraintsModel {
+  var heightValue: CoreGraphics.CGFloat { get }
+  func layout(_ view: UIKit.UIView, superview: UIKit.UIView, spacing: CoreGraphics.CGFloat)
+  func layoutSquare(_ view: UIKit.UIView)
+  func layoutFont(titleLabel: UIKit.UILabel)
+  func layoutIcon(iconImage: UIKit.UIImageView, uiView: UIKit.UIView)
+}
+extension OIComponents.ConstraintBuilder {
+  public func centerX(anchor uiViewAnchor: UIKit.NSLayoutXAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func centerX(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+public enum CharacterType : Swift.CaseIterable {
+  case letter
+  case whitespace
+  case number
+  case symbol
+  case punctuation
+  case emailSymbol
+  case dotSymbol
+  public static func == (a: OIComponents.CharacterType, b: OIComponents.CharacterType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias AllCases = [OIComponents.CharacterType]
+  public static var allCases: [OIComponents.CharacterType] {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension OIComponents.DesignTokens {
+  public enum CornerRadius {
+    public static let none: CoreGraphics.CGFloat
+    public static let sm: CoreGraphics.CGFloat
+    public static let md: CoreGraphics.CGFloat
+    public static let lg: CoreGraphics.CGFloat
+    public static let pill: CoreGraphics.CGFloat
+  }
+}
+extension OIComponents.ConstraintBuilder {
+  public func top(anchor uiViewAnchor: UIKit.NSLayoutYAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func top(anchor uiView: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func top(anchor layoutGuide: UIKit.UILayoutGuide, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+extension CoreGraphics.CGFloat {
+  public static func widthValue(_ value: CoreGraphics.CGFloat, from frame: CoreGraphics.CGRect? = nil) -> CoreGraphics.CGFloat
+  public static func heightValue(_ value: CoreGraphics.CGFloat, from frame: CoreGraphics.CGRect? = nil) -> CoreGraphics.CGFloat
+  public static func widthMultiplier(to value: CoreGraphics.CGFloat, from frame: CoreGraphics.CGRect? = nil) -> CoreGraphics.CGFloat
+  public static func heightMultiplier(to value: CoreGraphics.CGFloat, from frame: CoreGraphics.CGRect? = nil) -> CoreGraphics.CGFloat
+}
+public struct TextFieldComponentModel {
+  public init(label: Swift.String, placeholder: Swift.String, icon: OIComponents.ComponentIcon, size: OIComponents.TextFieldComponentSize, masks: [Swift.String] = [], acceptedCharacters: [OIComponents.CharacterType] = [], keyboardType: UIKit.UIKeyboardType = .default, autocapitalizationType: UIKit.UITextAutocapitalizationType = .sentences, identifier: Swift.String? = nil, textViewIdentifier: Swift.String? = nil, helperIdentifier: Swift.String? = nil)
+}
+extension OIComponents.DesignTokens.Font {
+  public enum Size {
+    case xxs
+    case xs
+    case sm
+    case md
+    case lg
+    case hxs
+    case hsm
+    case hmd
+    case hlg
+    case hxl
+    case display
+    case giant
+    public static func == (a: OIComponents.DesignTokens.Font.Size, b: OIComponents.DesignTokens.Font.Size) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension OIComponents.DesignTokens {
+  public enum Color {
+    public enum Brand {
+      public enum Primary {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+      public enum Secondary {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+      public enum Tertiary {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+    }
+    public enum Highlight {
+      public static let pure: UIKit.UIColor
+      public static let light: UIKit.UIColor
+      public static let medium: UIKit.UIColor
+      public static let dark: UIKit.UIColor
+    }
+    public enum Neutral {
+      public enum Low {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+      public enum High {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+    }
+    public enum Feedback {
+      public enum Warning {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+      public enum Helper {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+      public enum Success {
+        public static let pure: UIKit.UIColor
+        public static let light: UIKit.UIColor
+        public static let medium: UIKit.UIColor
+        public static let dark: UIKit.UIColor
+      }
+    }
+  }
+}
+extension OIComponents.ConstraintBuilder {
+  public func centerY(anchor uiViewAnchor: UIKit.NSLayoutYAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func centerY(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+public protocol CheckCameraPermissionDelegate : AnyObject {
+  func finishCheckPermissionAndContinueFlow(_ cameraPermissionVC: UIKit.UIViewController)
+  func canceledCheckPermission(_ cameraPermissionVC: UIKit.UIViewController)
+}
+public enum Visibility {
+  case displayed
+  case hidden
+  public static func == (a: OIComponents.Visibility, b: OIComponents.Visibility) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ComponentIcon {
+  case none
+  case has(UIKit.UIImage?)
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func makeConstraints() -> OIComponents.ConstraintBuilder
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class RadioButtonComponent : OIComponents.CheckboxComponent {
+  @_Concurrency.MainActor(unsafe) override public init(label: Swift.String, checkIcon: UIKit.UIImage?)
+  @objc deinit
+}
+public enum DesignTokens {
+}
+public enum TextFieldComponentSize {
+  case normal
+  case large
+  public static func == (a: OIComponents.TextFieldComponentSize, b: OIComponents.TextFieldComponentSize) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension OIComponents.DesignTokens {
+  @_hasMissingDesignatedInitializers public class Font {
+    public enum Highlight {
+      public static func regular(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+      public static func medium(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+      public static func bold(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+    }
+    public enum Base {
+      public static func regular(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+      public static func medium(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+      public static func bold(size: OIComponents.DesignTokens.Font.Size) -> UIKit.UIFont
+    }
+    @objc deinit
+  }
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class ButtonComponent : UIKit.UIButton {
+  @_Concurrency.MainActor(unsafe) public var isLoading: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.ButtonComponentModel, identifier: Swift.String? = nil)
+  @_Concurrency.MainActor(unsafe) public func changeTitle(to newTitle: Swift.String)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+public protocol LinkLayoutContraintsModel {
+  var fontSize: OIComponents.DesignTokens.Font.Size { get }
+  var iconMultiplier: CoreGraphics.CGFloat { get }
+  var componentHeight: CoreGraphics.CGFloat { get }
+  var verticalPadding: CoreGraphics.CGFloat { get }
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class CheckboxComponent : UIKit.UIView {
+  public typealias OnChangeValueHandler = (Swift.Bool) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) public init(label: Swift.String, checkIcon: UIKit.UIImage?)
+  @_Concurrency.MainActor(unsafe) public func setSelected(_ value: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func setDisabled(_ value: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func onChangeValue(handler: @escaping OIComponents.CheckboxComponent.OnChangeValueHandler)
+  @objc deinit
+}
+extension OIComponents.DesignTokens {
+  public enum BorderWidth {
+    public static let none: CoreGraphics.CGFloat
+    public static let hairline: CoreGraphics.CGFloat
+    public static let thin: CoreGraphics.CGFloat
+    public static let thick: CoreGraphics.CGFloat
+    public static let heavy: CoreGraphics.CGFloat
+  }
+}
+@objc @_Concurrency.MainActor(unsafe) public class SecureTextFieldComponent : OIComponents.BaseFieldComponent, UIKit.UITextFieldDelegate {
+  public typealias ValueChangeHandler = (_ component: OIComponents.SecureTextFieldComponent, _ value: Swift.String) -> Swift.Void
+  public typealias LostFocusHandler = (_ component: OIComponents.SecureTextFieldComponent, _ value: Swift.String) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var isFocused: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.TextFieldComponentModel, iconVisibilityOn: UIKit.UIImage?, iconVisibilityOff: UIKit.UIImage?)
+  @_Concurrency.MainActor(unsafe) override public func disable()
+  @_Concurrency.MainActor(unsafe) override public func enable()
+  @_Concurrency.MainActor(unsafe) override public func canShowWarning() -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func onValueChange(handler: @escaping OIComponents.SecureTextFieldComponent.ValueChangeHandler)
+  @_Concurrency.MainActor(unsafe) public func onLostFocus(handler: @escaping OIComponents.SecureTextFieldComponent.LostFocusHandler)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidChangeSelection(_ textField: UIKit.UITextField)
+  @objc deinit
+}
+public struct BaseFieldModel {
+  public var label: Swift.String
+  public var size: OIComponents.TextFieldComponentSize
+  public var icon: OIComponents.ComponentIcon
+}
+public struct OitiHeaderComponentModel {
+  public init(oitiLogoImage: UIKit.UIImage?, optionsImage: UIKit.UIImage?, optionsButtonIdentifier: Swift.String)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class BaseFieldComponent : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.BaseFieldModel)
+  @_Concurrency.MainActor(unsafe) public func disable()
+  @_Concurrency.MainActor(unsafe) public func enable()
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func showWarning(withText text: Swift.String) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func showOffWarning()
+  @_Concurrency.MainActor(unsafe) public func canShowWarning() -> Swift.Bool
+  @objc deinit
+}
+extension OIComponents.ViewBuilder {
+  public struct TextField {
+    public static func create() -> OIComponents.ViewBuilder.TextField
+    public func build() -> UIKit.UITextField
+    public func font(_ font: UIKit.UIFont) -> OIComponents.ViewBuilder.TextField
+    public func textColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.TextField
+    public func tintColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.TextField
+    public func textAlignment(_ alignment: UIKit.NSTextAlignment) -> OIComponents.ViewBuilder.TextField
+    public func clearButtonMode(_ mode: UIKit.UITextField.ViewMode) -> OIComponents.ViewBuilder.TextField
+    public func showSecureTextEntry(_ value: Swift.Bool) -> OIComponents.ViewBuilder.TextField
+  }
+}
+extension OIComponents.ViewBuilder {
+  public struct ImageView {
+    public static func create(for imageName: Swift.String, bundle: Foundation.Bundle = .main) -> OIComponents.ViewBuilder.ImageView
+    public static func create(with image: UIKit.UIImage? = nil) -> OIComponents.ViewBuilder.ImageView
+    public func build() -> UIKit.UIImageView
+    public func tintColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.ImageView
+    public func contentMode(_ mode: UIKit.UIView.ContentMode) -> OIComponents.ViewBuilder.ImageView
+    public func backgroundColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.ImageView
+    public func cornerRadius(_ radius: CoreGraphics.CGFloat) -> OIComponents.ViewBuilder.ImageView
+    @available(iOS 11.0, *)
+    public func cornerRadius(_ radius: CoreGraphics.CGFloat, edges: QuartzCore.CACornerMask) -> OIComponents.ViewBuilder.ImageView
+    public func masksToBounds(_ value: Swift.Bool = true) -> OIComponents.ViewBuilder.ImageView
+  }
+}
+public enum LinkComponentStyles {
+  case standardNormal
+  case standardHightlithed
+  case onColorNormal
+  case onColorHightlithed
+  public static func == (a: OIComponents.LinkComponentStyles, b: OIComponents.LinkComponentStyles) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ViewBuilder {
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class LinkComponent : UIKit.UIButton {
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.LinkComponentModel)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+extension OIComponents.ViewBuilder {
+  public struct Label {
+    public static func create(for text: Swift.String) -> OIComponents.ViewBuilder.Label
+    public static func create() -> OIComponents.ViewBuilder.Label
+    public static func create(withAttributedString attrString: Foundation.NSAttributedString) -> OIComponents.ViewBuilder.Label
+    public func build() -> UIKit.UILabel
+    public func numberOfLines(_ number: Swift.Int) -> OIComponents.ViewBuilder.Label
+    public func textAligment(_ aligment: UIKit.NSTextAlignment) -> OIComponents.ViewBuilder.Label
+    public func font(_ font: UIKit.UIFont) -> OIComponents.ViewBuilder.Label
+    public func textColor(_ color: UIKit.UIColor) -> OIComponents.ViewBuilder.Label
+    public func identifier(_ identifier: Swift.String) -> OIComponents.ViewBuilder.Label
+  }
+}
+extension OIComponents.ConstraintBuilder {
+  public func leading(anchor uiViewAnchor: UIKit.NSLayoutXAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func leading(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func leading(anchor layoutGuide: UIKit.UILayoutGuide, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+public enum ButtonComponentStyles {
+  case standardPrimaryHightlithed
+  case standardPrimaryNormal
+  case standardPrimaryDisabled
+  case standardSecondaryHightlithed
+  case standardSecondaryNormal
+  case standardSecondaryDisabled
+  case standardGhostHightlithed
+  case standardGhostHover
+  case standardGhostNormal
+  case standardGhostDisabled
+  case onColorPrimaryHightlithed
+  case onColorPrimaryNormal
+  case onColorPrimaryDisabled
+  case onColorSecondaryHightlithed
+  case onColorSecondaryNormal
+  case onColorSecondaryDisabled
+  case onColorGhostHightlithed
+  case onColorGhostNormal
+  case onColorGhostDisabled
+  public static func == (a: OIComponents.ButtonComponentStyles, b: OIComponents.ButtonComponentStyles) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_Concurrency.MainActor(unsafe) public class CheckCameraPermissionViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) weak public var delegate: OIComponents.CheckCameraPermissionDelegate?
+  @_Concurrency.MainActor(unsafe) public init(customView: OIComponents.CustomCameraPermissionView? = nil)
+  @available(*, unavailable)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func loadView()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @objc deinit
+}
+public enum ComponentSize {
+  case ultraLarge
+  case large
+  case medium
+  case small
+  public static func == (a: OIComponents.ComponentSize, b: OIComponents.ComponentSize) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension OIComponents.DesignTokens {
+  public enum SpacingInset {
+    public static let quarck: CoreGraphics.CGFloat
+    public static let nano: CoreGraphics.CGFloat
+    public static let xs: CoreGraphics.CGFloat
+    public static let sm: CoreGraphics.CGFloat
+    public static let md: CoreGraphics.CGFloat
+    public static let lg: CoreGraphics.CGFloat
+  }
+}
+extension OIComponents.DesignTokens {
+  public enum OpacityLevel {
+    public static let semiOpaque: CoreGraphics.CGFloat
+    public static let intense: CoreGraphics.CGFloat
+    public static let medium: CoreGraphics.CGFloat
+    public static let light: CoreGraphics.CGFloat
+    public static let semiTransparent: CoreGraphics.CGFloat
+  }
+}
+public protocol CustomCameraPermissionView : UIKit.UIView {
+  var backButton: UIKit.UIButton! { get }
+  var checkPermissionButton: UIKit.UIButton! { get }
+  var openSettingsButton: UIKit.UIButton! { get }
+  var closeButton: UIKit.UIButton! { get }
+  func showBottomSheet(visibility: OIComponents.Visibility)
+}
+@objc @_Concurrency.MainActor(unsafe) public class SelectComponent : OIComponents.BaseFieldComponent {
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.BaseFieldModel, downIcon: UIKit.UIImage?)
+  @objc deinit
+}
+extension OIComponents.ConstraintBuilder {
+  public func width(anchor uiViewAnchor: UIKit.NSLayoutDimension, multiplier: CoreGraphics.CGFloat = 1.0) -> OIComponents.ConstraintBuilder
+  public func width(anchor uiViewAnchor: UIKit.UIView, multiplier: CoreGraphics.CGFloat = 1.0) -> OIComponents.ConstraintBuilder
+  public func width(constant: CoreGraphics.CGFloat) -> OIComponents.ConstraintBuilder
+}
+public class ConstraintBuilder {
+  public init(_ view: UIKit.UIView)
+  public func constraintReference(_ constraintReference: inout UIKit.NSLayoutConstraint) -> OIComponents.ConstraintBuilder
+  public func build()
+  @objc deinit
+}
+extension OIComponents.ConstraintBuilder {
+  public func bottom(anchor uiViewAnchor: UIKit.NSLayoutYAxisAnchor, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func bottom(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+  public func bottom(anchor layoutGuide: UIKit.UILayoutGuide, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
+}
+extension OIComponents.DesignTokens {
+  public enum Spacing {
+    public static let quarck: CoreGraphics.CGFloat
+    public static let nano: CoreGraphics.CGFloat
+    public static let xxxs: CoreGraphics.CGFloat
+    public static let xxs: CoreGraphics.CGFloat
+    public static let xs: CoreGraphics.CGFloat
+    public static let sm: CoreGraphics.CGFloat
+    public static let md: CoreGraphics.CGFloat
+    public static let lg: CoreGraphics.CGFloat
+    public static let xl: CoreGraphics.CGFloat
+    public static let xxl: CoreGraphics.CGFloat
+    public static let xxxl: CoreGraphics.CGFloat
+    public static let huge: CoreGraphics.CGFloat
+    public static let giant: CoreGraphics.CGFloat
+  }
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class TextFieldComponent : UIKit.UIView, UIKit.UITextFieldDelegate {
+  public typealias ObserveValueChangesHandler = (_ value: Swift.String, _ rawValue: Swift.String) -> Swift.Void
+  public typealias LostFocusHandler = (_ component: OIComponents.TextFieldComponent, _ value: Swift.String, _ rawValue: Swift.String) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var isFocused: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) public var textFieldValue: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var textFieldRawValue: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.TextFieldComponentModel)
+  @_Concurrency.MainActor(unsafe) public func disable()
+  @_Concurrency.MainActor(unsafe) public func enable()
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func showWarning(withText text: Swift.String) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func showOffWarning()
+  @_Concurrency.MainActor(unsafe) public func addObserveValueChangesAction(handler: @escaping OIComponents.TextFieldComponent.ObserveValueChangesHandler)
+  @_Concurrency.MainActor(unsafe) public func addOnLostFocusAction(handler: @escaping OIComponents.TextFieldComponent.LostFocusHandler)
+  @_Concurrency.MainActor(unsafe) public func setText(_ text: Swift.String)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
+  @_Concurrency.MainActor(unsafe) @objc public func textFieldDidChangeSelection(_ textField: UIKit.UITextField)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class SquareButtonComponent : OIComponents.ButtonComponent {
+  @_Concurrency.MainActor(unsafe) public func layoutForSuperview(_ superview: UIKit.UIView, with layoutContraintModel: OIComponents.ButtonLayoutContraintsModel)
+  @_Concurrency.MainActor(unsafe) override public init(model: OIComponents.ButtonComponentModel, identifier: Swift.String? = nil)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class TextAreaComponent : UIKit.UIView, UIKit.UITextViewDelegate {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var isFocused: Swift.Bool {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) public var textAreaValue: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var observeValueChanges: (Swift.String, Swift.String) -> Swift.Void
+  @_Concurrency.MainActor(unsafe) public init(model: OIComponents.TextFieldComponentModel)
+  @_Concurrency.MainActor(unsafe) public func disable()
+  @_Concurrency.MainActor(unsafe) public func enable()
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func showWarning(withText text: Swift.String) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func showOffWarning()
+  @_Concurrency.MainActor(unsafe) @objc public func textViewDidBeginEditing(_ textView: UIKit.UITextView)
+  @_Concurrency.MainActor(unsafe) @objc public func textViewDidEndEditing(_ textView: UIKit.UITextView)
+  @objc deinit
+}
+extension OIComponents.CharacterType : Swift.Equatable {}
+extension OIComponents.CharacterType : Swift.Hashable {}
+extension OIComponents.DesignTokens.Font.Size : Swift.Equatable {}
+extension OIComponents.DesignTokens.Font.Size : Swift.Hashable {}
+extension OIComponents.Visibility : Swift.Equatable {}
+extension OIComponents.Visibility : Swift.Hashable {}
+extension OIComponents.TextFieldComponentSize : Swift.Equatable {}
+extension OIComponents.TextFieldComponentSize : Swift.Hashable {}
+extension OIComponents.LinkComponentStyles : Swift.Equatable {}
+extension OIComponents.LinkComponentStyles : Swift.Hashable {}
+extension OIComponents.ButtonComponentStyles : Swift.Equatable {}
+extension OIComponents.ButtonComponentStyles : Swift.Hashable {}
+extension OIComponents.ComponentSize : Swift.Equatable {}
+extension OIComponents.ComponentSize : Swift.Hashable {}
