@@ -4,7 +4,7 @@ Neste repositório você vai encontrar as documentações para **iOS** sobre **F
 
 ##  Instalação
 
-O SDK está disponível via [CocoaPods](https://cocoapods.org/about).
+O SDK está disponível via [CocoaPods](https://cocoapods.org/about) *(Forma recomendada)* ou via instalação manual.
 
 ###  CocoaPods
 1. Caso não possua um arquivo `Podfile` no seu projeto, basta executar o comando abaixo na raiz do projeto para um novo arquivo ser criado.
@@ -32,7 +32,11 @@ pod install
 
 5. Abra o arquivo `.xcworkspace` do seu projeto.
 
-##  Como integrar?
+###  Instalação manual
+
+Os XCFramwworks para instalação manual estão disponíveis na pasta [Frameworks](/Frameworks).
+
+##   Como integrar?
 
 ###  Permissões de acesso
 

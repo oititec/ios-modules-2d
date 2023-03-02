@@ -1,0 +1,11 @@
+framework module OILiveness2D {
+  umbrella header "OILiveness2D.h"
+
+  export *
+  module * { export * }
+}
+
+module OILiveness2D.Swift {
+    header "OILiveness2D-Swift.h"
+    requires objc
+}
