@@ -7,19 +7,19 @@ Neste repositório você vai encontrar as documentações para **iOS** sobre **F
 O SDK está disponível via [CocoaPods](https://cocoapods.org/about).
 
 ###  CocoaPods
-1. Caso não possua um arquivo `Podfile` no seu projeto, basta executar o comando abaixo na raiz do projeto que um novo arquivo desse será criado.
+1. Caso não possua um arquivo `Podfile` no seu projeto, basta executar o comando abaixo na raiz do projeto para um novo arquivo ser criado.
 
 ```rb
 pod init
 ```
 
-2. No início do `Podfile`, inclua a linha:
+2. No início do `Podfile`, inclua a linha abaixo:
 
 ```rb
 source 'https://github.com/oititec/ios-artifactory.git'
 ```
 
-2. Após isso, adicione a dependência:
+3. Em seguida, adicione a dependência a seguir:
 
 ```rb
 pod 'OILiveness2D', '~> x.y.z'
@@ -32,7 +32,7 @@ pod install
 
 5. Abra o arquivo `.xcworkspace` do seu projeto.
 
-##  Integração
+##  Como integrar?
 
 ###  Permissões de acesso
 
@@ -58,7 +58,7 @@ As instruções de implementação da **Documentoscopia** podem ser acessadas no
   - [Guia de customização](Documentation/Documentscopy/Documentscopy-Customization.md).
 
 ### Changelog
-- Alterações a partir versão 1.0.0 podem ser encontradas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
+- Alterações a partir da versão 1.0.0 podem ser encontradas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
 
 ### Breaking Changes
 - [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness3D
