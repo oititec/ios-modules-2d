@@ -1,4 +1,4 @@
-# Documentoscopia
+# Guia de implementação - Documentoscopia
 
 Guia de implementação da Documentoscopia para iOS.
 
@@ -43,14 +43,14 @@ Detalhes de como implementar a customização são encontrados [neste link](Docu
 1. Implemente o protocolo `DocumentscopyDelegate` para ser notificado sobre a conclusão da documentoscopia:
 ```swift
 public protocol DocumentscopyDelegate: AnyObject {
-    /// Lidar com o processo de Documentoscopia que foi realizado com sucesso
+    /// Lidar com o processo de Documentoscopia que foi realizado com sucesso.
     func handleDocumentscopyCompleted()
     
-    /// Lidar com o erro que ocorreu durante o processo de Documentoscopia
-    /// - Parameter error: Erro capturado no processo
+    /// Lidar com o erro que ocorreu durante o processo de Documentoscopia.
+    /// - Parameter error: Erro capturado no processo.
     func handleDocumentscopyError(error: DocumentscopyError)
     
-    /// Lidar com o processo de Documentoscopia que foi cancelado
+    /// Lidar com o processo de Documentoscopia que foi cancelado.
     func handleDocumentscopyCanceled()
 }
 ```
@@ -66,18 +66,25 @@ Este protocolo contém três métodos:
 public enum DocumentscopyError {
     /// App Key inválido.
     case invalidAppKey
+
     /// Certiface offline.
     case certifaceOff
+
     /// Problema ao configurar a câmera
     case cameraSetupFailed
+
     /// Não foi concedida permissão de acesso à câmera do aparelho.
     case noCameraPermission
+
     /// Erro ao capturar foto
     case errorCapturePicture
+
     /// Sem conexão à Internet.
     case noInternetConnection
+
     /// Erro na requisição de validação dos desafios.
     case validationError
+    
     /// FaceCaptcha não foi realizada
     case faceCaptchaNotExecuted
 }
