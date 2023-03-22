@@ -8,6 +8,7 @@ import OICommons
 @_exported import OIComponents
 import Swift
 import UIKit.UIButton
+import UIKit.UIColor
 import UIKit.UIImage
 import UIKit
 import UIKit.UIView
@@ -255,8 +256,8 @@ extension OIComponents.ConstraintBuilder {
   public func centerY(anchor uiViewAnchor: UIKit.UIView, padding: CoreGraphics.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
 }
 public protocol CheckCameraPermissionDelegate : AnyObject {
-  func finishCheckPermissionAndContinueFlow(_ cameraPermissionVC: UIKit.UIViewController)
-  func canceledCheckPermission(_ cameraPermissionVC: UIKit.UIViewController)
+  func `continue`(_ cameraPermissionVC: UIKit.UIViewController)
+  func close(_ cameraPermissionVC: UIKit.UIViewController)
 }
 public enum Visibility {
   case displayed
@@ -320,6 +321,12 @@ public protocol LinkLayoutContraintsModel {
   var componentHeight: CoreGraphics.CGFloat { get }
   var verticalPadding: CoreGraphics.CGFloat { get }
 }
+@objc @_Concurrency.MainActor(unsafe) public class HybridLoadingView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public init(appearance customAppearance: OIComponents.HybridViewAppearance?)
+  @available(*, unavailable)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class CheckboxComponent : UIKit.UIView {
   public typealias OnChangeValueHandler = (Swift.Bool) -> Swift.Void
   @_Concurrency.MainActor(unsafe) public init(label: Swift.String, checkIcon: UIKit.UIImage?)
@@ -355,6 +362,9 @@ extension OIComponents.DesignTokens {
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidChangeSelection(_ textField: UIKit.UITextField)
   @objc deinit
+}
+public struct HybridViewAppearance {
+  public init(backgroundColor: UIKit.UIColor, loadingColor: UIKit.UIColor)
 }
 public struct BaseFieldModel {
   public var label: Swift.String

@@ -270,6 +270,17 @@ SWIFT_CLASS("_TtC12OILiveness2D25FaceCaptchaViewController")
 @end
 
 
+
+SWIFT_CLASS("_TtC12OILiveness2D33HybridDocumentscopyViewController")
+@interface HybridDocumentscopyViewController : DocumentscopyViewController
+@end
+
+
+SWIFT_CLASS("_TtC12OILiveness2D31HybridFaceCaptchaViewController")
+@interface HybridFaceCaptchaViewController : FaceCaptchaViewController
+@end
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -547,6 +558,17 @@ SWIFT_CLASS("_TtC12OILiveness2D25FaceCaptchaViewController")
 @end
 
 
+
+SWIFT_CLASS("_TtC12OILiveness2D33HybridDocumentscopyViewController")
+@interface HybridDocumentscopyViewController : DocumentscopyViewController
+@end
+
+
+SWIFT_CLASS("_TtC12OILiveness2D31HybridFaceCaptchaViewController")
+@interface HybridFaceCaptchaViewController : FaceCaptchaViewController
+@end
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -821,6 +843,17 @@ SWIFT_CLASS("_TtC12OILiveness2D25FaceCaptchaViewController")
 
 @interface FaceCaptchaViewController (SWIFT_EXTENSION(OILiveness2D)) <UIGestureRecognizerDelegate>
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer * _Nonnull)gestureRecognizer SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+SWIFT_CLASS("_TtC12OILiveness2D33HybridDocumentscopyViewController")
+@interface HybridDocumentscopyViewController : DocumentscopyViewController
+@end
+
+
+SWIFT_CLASS("_TtC12OILiveness2D31HybridFaceCaptchaViewController")
+@interface HybridFaceCaptchaViewController : FaceCaptchaViewController
 @end
 
 

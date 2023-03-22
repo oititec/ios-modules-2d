@@ -253,6 +253,13 @@ SWIFT_CLASS("_TtC12OIComponents17CheckboxComponent")
 @end
 
 
+SWIFT_CLASS("_TtC12OIComponents17HybridLoadingView")
+@interface HybridLoadingView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12OIComponents16InstructionsView")
 @interface InstructionsView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER SWIFT_UNAVAILABLE;
@@ -607,6 +614,13 @@ SWIFT_CLASS("_TtC12OIComponents17CheckboxComponent")
 @end
 
 
+SWIFT_CLASS("_TtC12OIComponents17HybridLoadingView")
+@interface HybridLoadingView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
 SWIFT_CLASS("_TtC12OIComponents16InstructionsView")
 @interface InstructionsView : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER SWIFT_UNAVAILABLE;
@@ -957,6 +971,13 @@ SWIFT_CLASS("_TtC12OIComponents35CheckCameraPermissionViewController")
 SWIFT_CLASS("_TtC12OIComponents17CheckboxComponent")
 @interface CheckboxComponent : UIView
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC12OIComponents17HybridLoadingView")
+@interface HybridLoadingView : UIView
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
 @end
 
