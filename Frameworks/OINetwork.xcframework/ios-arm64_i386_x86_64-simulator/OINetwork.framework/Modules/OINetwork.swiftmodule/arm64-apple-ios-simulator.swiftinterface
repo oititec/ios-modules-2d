@@ -1,0 +1,222 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 effective-4.2 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name OINetwork
+import Foundation
+import OICommons
+@_exported import OINetwork
+import Swift
+import UIKit
+import _Concurrency
+public struct FCTypeFaceModel {
+  public var codigo: Swift.String?
+  public var imagem: Swift.String?
+}
+public struct FCUserModel {
+  public var user: Swift.String?
+  public var pass: Swift.String?
+  public var cpf: Swift.String?
+  public var name: Swift.String?
+  public var birth: Swift.String?
+  public var privateKey: Swift.String?
+  public var image: UIKit.UIImage?
+  public init(_ user: Swift.String, _ pass: Swift.String, _ cpf: Swift.String, _ name: Swift.String, _ birth: Swift.String, _ overlapImage: UIKit.UIImage? = nil)
+}
+public struct FCPrivateKeyModel {
+  public var token: Swift.String?
+  public var expires: Swift.String?
+}
+public struct FCCaptchaModel {
+  public var appkey: Swift.String?
+  public var chkey: Swift.String?
+  public var images: Swift.String?
+  public var fcvarUrlbase: Swift.String?
+  public init(appkey: Swift.String? = nil, chkey: Swift.String? = nil, images: Swift.String? = nil, fcvarUrlbase: Swift.String? = nil)
+}
+public typealias FCManagerChallengeResultCallback = (_ value: OINetwork.FCResultModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerValidResultCallback = (_ value: OINetwork.FCValidCaptchaModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerPrivateKeyResultCallback = (_ value: OINetwork.FCPrivateKeyModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerSessionResultCallback = (_ value: OINetwork.FCSessionModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerSuccessCallback = (_ success: Swift.Bool, _ error: Swift.Error?, _ httpCode: Swift.Int?) -> Swift.Void
+public typealias FCManagerInitializerResultCallback = (_ value: OINetwork.FCInitializationModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerSession3DResultCallback = (_ value: OINetwork.FCSession3DModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManager3DLivenessResultCallback = (_ value: OINetwork.Liveness3DSuccess?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerResultCallback = (_ value: Swift.String?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerAppKeyCallback = (_ appKey: Swift.String?) -> Swift.Void
+public protocol FCManagerProtocol {
+  func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerPrivateKeyResultCallback)
+  func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSessionResultCallback)
+  func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping OINetwork.FCManagerChallengeResultCallback)
+  func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCManagerValidResultCallback)
+  func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerInitializerResultCallback)
+  func create3DSession(appKey: Swift.String, userAgent: Swift.String, baseURL fcvarUrlbase: Swift.String, onDebug: Swift.Bool, completion: @escaping OINetwork.FCManagerSession3DResultCallback)
+  func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManager3DLivenessResultCallback)
+  func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
+  func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
+  func generateAppkey(cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerAppKeyCallback)
+  func postSDKStatus(of payload: OINetwork.Liveness3DPayload)
+}
+public struct Liveness3DPayloadFields : Swift.Codable {
+  public let step: Swift.String
+  public let stackTrace: Swift.String?
+  public let facetecMessage: Swift.String?
+  public let sessionToken: Swift.String?
+  public let initializeKey: Swift.String?
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Liveness3DPayload : Swift.Codable {
+  public let appKey: Swift.String
+  public let fields: OINetwork.Liveness3DPayloadFields
+  public init(appKey: Swift.String, step: Swift.String, stackTrace: Swift.String? = nil, facetecMessage: Swift.String? = nil, sessionToken: Swift.String? = nil, initializeKey: Swift.String? = nil)
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct FCValidCaptchaModel {
+  public var valid: Swift.Bool?
+  public var codID: Swift.Double?
+  public var cause: Swift.String?
+  public var uidProtocol: Swift.String?
+}
+public typealias FCProviderCallback = (_ value: Foundation.Data?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCProviderSuccessCallback = (_ success: Swift.Bool, _ error: Swift.Error?, _ httpCode: Swift.Int?) -> Swift.Void
+public protocol FCProviderProtocol {
+  func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCProviderCallback)
+  func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func create3DSession(_ userAgent: Swift.String, _ appkey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCProviderCallback)
+  func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCProviderCallback)
+  func postSDKStatus(of payload: OINetwork.Liveness3DPayload, _ completion: @escaping OINetwork.FCProviderCallback)
+}
+public typealias FCBusinessChallengeResultCallback = (_ value: OINetwork.FCResultModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusinessValidResultCallback = (_ value: OINetwork.FCValidCaptchaModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusinessPrivateKeyResultCallback = (_ value: OINetwork.FCPrivateKeyModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusinessSessionResultCallback = (_ value: OINetwork.FCSessionModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusinessSuccessCallback = (_ success: Swift.Bool, _ error: Swift.Error?, _ httpCode: Swift.Int?) -> Swift.Void
+public typealias FCBusinessInitalizationResultCallback = (_ value: OINetwork.FCInitializationModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusiness3DSessionResultCallback = (_ value: OINetwork.FCSession3DModel?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusiness3DLivenessResultCallback = (_ value: OINetwork.Liveness3DSuccess?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusinessExampleResultCallback = (_ value: Swift.String?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCBusiness3DLivenessSDKStatusCallback = (_ value: Swift.String?, _ error: Swift.Error?) -> Swift.Void
+public protocol FCBusinessProtocol {
+  func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessPrivateKeyResultCallback)
+  func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSessionResultCallback)
+  func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping OINetwork.FCBusinessChallengeResultCallback)
+  func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCManagerValidResultCallback)
+  func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessInitalizationResultCallback)
+  func create3DSession(appKey: Swift.String, userAgent: Swift.String, baseURL fcvarUrlbase: Swift.String, onDebug: Swift.Bool, completion: @escaping OINetwork.FCBusiness3DSessionResultCallback)
+  func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusiness3DLivenessResultCallback)
+  func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCBusinessExampleResultCallback)
+  func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCBusinessExampleResultCallback)
+  func postSDKStatus(of payload: OINetwork.Liveness3DPayload, _ completion: @escaping OINetwork.FCBusiness3DLivenessSDKStatusCallback)
+}
+@_hasMissingDesignatedInitializers public class FCManager {
+  public static let shared: OINetwork.FCManagerProtocol
+  @objc deinit
+}
+extension OINetwork.FCManager : OINetwork.FCManagerProtocol {
+  public func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  public func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  public func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerPrivateKeyResultCallback)
+  public func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSessionResultCallback)
+  public func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping (OINetwork.FCResultModel?, Swift.Error?) -> Swift.Void)
+  public func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCManagerValidResultCallback)
+  public func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerSuccessCallback)
+  public func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCManagerInitializerResultCallback)
+  public func create3DSession(appKey: Swift.String, userAgent: Swift.String, baseURL fcvarUrlbase: Swift.String, onDebug: Swift.Bool = false, completion: @escaping OINetwork.FCManagerSession3DResultCallback)
+  public func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusiness3DLivenessResultCallback)
+  public func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
+  public func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
+  public func generateAppkey(cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerAppKeyCallback)
+  public func postSDKStatus(of payload: OINetwork.Liveness3DPayload)
+}
+public struct FCSessionModel {
+  public var appkey: Swift.String?
+}
+public struct FCSession3DModel {
+  public let sessionToken: Swift.String?
+}
+public struct FCInitializationModel {
+  public var productionKey: Swift.String?
+}
+public struct FCChallengeModel {
+  public var mensagem: Swift.String?
+  public var grayscale: Swift.Bool?
+  public var tempoEmSegundos: Swift.Int?
+  public var tipoFace: OINetwork.FCTypeFaceModel?
+}
+public struct Liveness3DSuccess {
+  public var valid: Swift.Bool?
+  public var codID: Swift.Double?
+  public var cause: Swift.String?
+  public var protocolo: Swift.String?
+  public var scanResultBlob: Swift.String?
+}
+@_hasMissingDesignatedInitializers public class FCBusiness {
+  public static let shared: OINetwork.FCBusinessProtocol
+  @objc deinit
+}
+extension OINetwork.FCBusiness : OINetwork.FCBusinessProtocol {
+  public func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  public func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  public func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping (OINetwork.FCResultModel?, Swift.Error?) -> Swift.Void)
+  public func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping (OINetwork.FCPrivateKeyModel?, Swift.Error?) -> Swift.Void)
+  public func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping (OINetwork.FCSessionModel?, Swift.Error?) -> Swift.Void)
+  public func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCManagerValidResultCallback)
+  public func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessSuccessCallback)
+  public func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusinessInitalizationResultCallback)
+  public func create3DSession(appKey: Swift.String, userAgent: Swift.String, baseURL fcvarUrlbase: Swift.String, onDebug: Swift.Bool, completion: @escaping OINetwork.FCBusiness3DSessionResultCallback)
+  public func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCBusiness3DLivenessResultCallback)
+  public func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCBusinessExampleResultCallback)
+  public func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCBusinessExampleResultCallback)
+  public func postSDKStatus(of payload: OINetwork.Liveness3DPayload, _ completion: @escaping OINetwork.FCBusiness3DLivenessSDKStatusCallback)
+}
+public struct FCBaseModel {
+  public var appkey: Swift.String?
+  public var fcvarUrlbase: Swift.String?
+  public var p: Swift.String?
+  public static let K_APP_KEY: Swift.String
+  public static let K_P: Swift.String
+  public init(appkey: Swift.String? = nil, fcvarUrlbase: Swift.String? = nil, p: Swift.String? = nil)
+}
+@_hasMissingDesignatedInitializers public class FCProvider {
+  public static let shared: OINetwork.FCProviderProtocol
+  public func createURLRequest(fcvarUrlbase: Swift.String?, endpoint: Swift.String, httpMethod: Swift.String) -> Foundation.URLRequest
+  public func perforRequest(request: Foundation.URLRequest, completion: @escaping OINetwork.FCProviderCallback)
+  public func perforRequest(request: Foundation.URLRequest, completion: @escaping OINetwork.FCProviderSuccessCallback)
+  @objc deinit
+}
+extension OINetwork.FCProvider : OINetwork.FCProviderProtocol {
+  public func verifyCertifaceOnline(_ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  public func verifyAppKey(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  public func createPrivateKey(_ model: OINetwork.FCUserModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func createSession(_ model: OINetwork.FCUserModel, _ token: OINetwork.FCPrivateKeyModel, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func fetchAllCaptchaCallenge(_ model: OINetwork.FCBaseModel, _ appkey: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func validateCaptchaChallenge(_ model: OINetwork.FCCaptchaModel, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func sendDocument(_ images: [Swift.String], _ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderSuccessCallback)
+  public func initializeSDKLiveness(_ appKey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func create3DSession(_ userAgent: Swift.String, _ appkey: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func verifyLiveness3D(_ userAgent: Swift.String, _ appkey: Swift.String, _ faceScan: Swift.String, _ auditTrailImage: Swift.String, _ lowQualityAuditTrailImage: Swift.String, _ sessionId: Swift.String, _ fcvarUrlbase: Swift.String, _ completion: @escaping OINetwork.FCProviderCallback)
+  public func credential(user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCProviderCallback)
+  public func generateAppkey(user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCProviderCallback)
+  public func postSDKStatus(of payload: OINetwork.Liveness3DPayload, _ completion: @escaping OINetwork.FCProviderCallback)
+}
+public struct FCResultModel {
+  public var chkey: Swift.String?
+  public var snapNumber: Swift.Int?
+  public var snapFrequenceInMillis: Swift.Int?
+  public var challenges: [OINetwork.FCChallengeModel]?
+  public func totalNumberOfPictures() -> Swift.Int
+}
