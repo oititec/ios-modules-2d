@@ -9,7 +9,9 @@ Todas as *views* customizadas são passadas via construtor da classe ``FaceCaptc
 
 ```swift
 let controller = FaceCaptchaViewController(
-    appKey: appKey, baseURL: baseURL, delegate: self,
+    appKey: appKey, 
+    baseUrl: baseUrl, 
+    delegate: self,
     customInstructionsView: CustomInstructionsView(),
     customLivenessView: CustomLivenessView(),
     customProcessResultView: CustomProcessResultView(),
