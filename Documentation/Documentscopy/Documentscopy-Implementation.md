@@ -11,13 +11,13 @@ import OILiveness2D
 
 2. Instancie `DocumentscopyViewController`, passando os seguintes parâmetros:
 - **appKey**: App Key recebida previamente.
-- **baseURL**: URL apontando para o ambiente desejado.
+- **baseUrl**: URL apontando para o ambiente desejado.
 - **delegate**: delegate que implementará os métodos para tratar o retorno da documentoscopia.
 
 ```swift
 let controller = DocumentscopyViewController(
     appKey: appKey, 
-    baseURL: baseURL,
+    baseUrl: baseUrl,
     delegate: self
 )
 ```

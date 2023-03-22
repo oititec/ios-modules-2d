@@ -11,13 +11,13 @@ import OILiveness2D
 
 2. Instancie `FaceCaptchaViewController`, passando os seguintes parâmetros:
 - *appKey*: App Key recebida previamente.
-- *baseURL*: URL apontando para o ambiente desejado.
+- *baseUrl*: URL apontando para o ambiente desejado.
 - *delegate* *(opcional)*: delegate que implementará os métodos para tratar o retorno do FaceCaptcha.
 
 ```swift
 let controller = FaceCaptchaViewController(
     appKey: appKey,
-    baseURL: baseURL,
+    baseUrl: baseUrl,
     delegate: self
 )
 ```
