@@ -11,7 +11,7 @@ import OILiveness2D
 
 2. Instancie `FaceCaptchaViewController`, passando os seguintes parâmetros:
 - *appKey*: AppKey recebida previamente.
-- *environment*: valor que indica o ambiente de execução desejado: <br/>- **HML**: Homologação<br/>- **PRD**: Produção.
+- *environment*: valor que indica o ambiente de execução desejado: <br/>- **HML**: Homologação<br/>- **PRD**: Produção
 - *delegate* *(opcional)*: _delegate_ que implementará os métodos para tratar o retorno do FaceCaptcha.
 
 ```swift

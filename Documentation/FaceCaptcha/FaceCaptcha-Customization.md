@@ -53,7 +53,7 @@ Essa view deve estar em conformidade com o protocolo ``FaceCaptchaCustomView`` q
 
 ```swift
 public protocol FaceCaptchaCustomView: UIView {
-    var cameraPreview: FaceCaptchaCameraPreviewView! { get }
+    var cameraPreview: CameraPreviewView! { get }
     var cameraOverlay: UIView! { get }
     var backButton: UIButton! { get }
     var closeButton: UIButton! { get }
@@ -81,7 +81,7 @@ public protocol FaceCaptchaCustomView: UIView {
 | (**8**)    | `challengeText`                 | ImageView que exibirá o texto do desafio. |
 | (**9**)    | `challengeIcon`                 | ImageView que exibirá o emoji do desafio. |
 | (**10**)   | `recognizingLabel`              | Label que será exibida durante o processo de reconhecimento da face. |
-|            | `updateProgress(to:)`           | Método que recebe a porcentagem de carregamento do processo de reconhecimento facial, os valores recebidos variam entre 0.0 e 1.0. |
+|            | `updateProgress(to:)`           | Método que recebe a porcentagem de carregamento do processo de reconhecimento facial, os valores recebidos variam entre **0.0** e **1.0**. |
 |            | `setInstructionLabelTitle(to:)` | Método que altera o titulo da propriedade `instructionLabel`. |
 
 <br/>
@@ -92,7 +92,7 @@ public protocol FaceCaptchaCustomView: UIView {
 </div>
 <br/>
 
-**FaceCaptchaCameraPreviewView**
+**CameraPreviewView**
 
 É uma classe customizada que herda de uma `UIView`.
 
