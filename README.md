@@ -62,12 +62,13 @@ As instruções de implementação da **Documentoscopia** podem ser acessadas no
   - [Guia de customização](Documentation/Documentscopy/Documentscopy-Customization.md).
 
 ### Changelog
-- Alterações a partir da versão 1.0.0 podem ser encontradas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
+- As novidades das versões podem ser acessadas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
 
 ### Breaking Changes
-- [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness3D
+- [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness2D.
 
 <br/>
 
->⚠️ **Para conhecer mais sobre Liveness, consulte [este link.](https://certifaceid.readme.io/docs/liveness-detection-vs-atualizada)**
-
+> ⚠️ **Importante**
+> <br/>Para conhecer o **Hub de Liveness**: [consulte este link.](https://devcenter.certiface.io/docs/hub-de-liveness)
+> <br/>Para conhecer o **Doc Core**: [consulte este link.](https://devcenter.certiface.io/docs/doc-core)
