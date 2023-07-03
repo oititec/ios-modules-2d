@@ -10,7 +10,7 @@ Todas as *views* customizadas são passadas via construtor da classe ``FaceCaptc
 ```swift
 let controller = FaceCaptchaViewController(
     appKey: appKey, 
-    baseUrl: baseUrl, 
+    environment: environment, 
     delegate: self,
     customInstructionsView: CustomInstructionsView(),
     customLivenessView: CustomLivenessView(),
@@ -149,10 +149,10 @@ public enum FaceCaptchaResultType {
 
 ### `customCameraPermissionView`
 
-Essa view deve estar em conformidade com o protocolo ``DocumentscopyCustomCameraPermissionView`` que contém os seguintes atributos:
+Essa view deve estar em conformidade com o protocolo ``CustomCameraPermissionView`` que contém os seguintes atributos:
 
 ```swift
-public protocol DocumentscopyCustomCameraPermissionView: UIView {
+public protocol CustomCameraPermissionView: UIView {
     var backButton: UIButton! { get }
     var checkPermissionButton: UIButton! { get }
     var openSettingsButton: UIButton! { get }
@@ -168,10 +168,10 @@ public protocol DocumentscopyCustomCameraPermissionView: UIView {
 | (**2**) | `checkPermissionButton` | Botão responsável por verificar a permissão de câmera e solicitá-la se necessário. |
 | (**3**) | `openSettingsButton` | Botão que redireciona o usuário para o menu de permissões do aplicativo na configurações do dispositivo. |
 | (**4**) | `closeButton` | Botão que fecha o fluxo de validação da permissão de câmera e volta para tela anterior. |
-|         | `showBottomSheet(visibility:)` | Método responsável por indicar o momento de mostrar os botões de ``openSettingsButton`` e ``closeButton``, podendo receber dois valores: **hidden** (esconder os botões) e **displayed** (mostrar os botões). |
+|         | `showBottomSheet(visibility:)` | Método responsável por indicar o momento de mostrar os botões de ``openSettingsButton`` e ``closeButton``, podendo receber dois valores:<br/>- **hidden** (_esconder os botões_)<br/>- **displayed** (_mostrar os botões_) |
 
 <br/>
 <div>
     <img src="../Images/camera_permission_1.png" width="432" height="396" />
     <img src="../Images/camera_permission_2.png" width="432" height="396" />
-<div/>
+</div>
