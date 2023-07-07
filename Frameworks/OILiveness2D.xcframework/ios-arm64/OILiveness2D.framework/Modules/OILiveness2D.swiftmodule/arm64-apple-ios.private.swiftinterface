@@ -1,0 +1,188 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OILiveness2D
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CoreGraphics
+import Foundation
+import OICommons
+import OIComponents
+@_exported import OILiveness2D
+import OINetwork
+import Swift
+import UIKit.UIBezierPath
+import UIKit.UIButton
+import UIKit.UIImage
+import UIKit
+import UIKit.UIView
+import UIKit.UIViewController
+import _Concurrency
+import _StringProcessing
+public enum DocumentscopyError : Swift.Error {
+  case invalidAppKey
+  case certifaceOff
+  case cameraSetupFailed
+  case noCameraPermission
+  case errorCapturePicture
+  case noInternetConnection
+  case validationError
+  case faceCaptchaNotExecuted
+  public static func == (a: OILiveness2D.DocumentscopyError, b: OILiveness2D.DocumentscopyError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentscopyViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customInstructionView: OILiveness2D.DocumentscopyCustomInstructionView? = nil, customView: OILiveness2D.DocumentscopyCustomView? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: OILiveness2D.DocumentscopyCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @objc deinit
+}
+extension OILiveness2D.DocumentscopyViewController : UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class FaceCaptchaViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.FaceCaptchaDelegate, customInstructionsView: OILiveness2D.FaceCaptchaCustomIntructionsView? = nil, customLivenessView: OILiveness2D.FaceCaptchaCustomView? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: OILiveness2D.FaceCaptchaCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @objc deinit
+}
+extension OILiveness2D.FaceCaptchaViewController : UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+}
+extension OILiveness2D.FaceCaptchaViewController : OIComponents.CheckCameraPermissionDelegate {
+  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
+}
+public protocol DocumentscopyCustomResultView : UIKit.UIView {
+  var resultButton: UIKit.UIButton! { get }
+  func display(for resultType: OILiveness2D.DocumentscopyResultType)
+}
+public enum FocusIndicator {
+  case front
+  case back
+  public static func == (a: OILiveness2D.FocusIndicator, b: OILiveness2D.FocusIndicator) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum FaceCaptchaError : Swift.Error {
+  case invalidAppKey
+  case certifaceOff
+  case noCameraPermission
+  case noInternetConnection
+  case phoneCallInProgress
+  case validationError
+  case challengeInterrupted
+  case requestError
+  case errorCameraSetup
+  case errorCapturePicture
+  public static func == (a: OILiveness2D.FaceCaptchaError, b: OILiveness2D.FaceCaptchaError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public typealias Environment = OICommons.Environment
+public typealias Visibility = OIComponents.Visibility
+public typealias FaceCaptchaSuccessModel = OINetwork.FCValidCaptchaModel
+public typealias DocumentscopyCustomLoadingView = UIKit.UIView
+public typealias FaceCaptchaCustomProcessResultView = UIKit.UIView
+public protocol CustomCameraPermissionView : OIComponents.CustomCameraPermissionView {
+  override func showBottomSheet(visibility: OILiveness2D.Visibility)
+}
+public protocol FaceCaptchaCustomResultView : UIKit.UIView {
+  var closeButton: UIKit.UIButton! { get }
+  func display(_ resultType: OILiveness2D.FaceCaptchaResultType)
+}
+public protocol DocumentscopyCustomInstructionView : UIKit.UIView {
+  var backButton: UIKit.UIButton! { get }
+  var viewCNH: UIKit.UIView! { get }
+  var viewRG: UIKit.UIView! { get }
+  func changeLoadingVisibility(to visibility: OILiveness2D.Visibility)
+}
+public protocol DocumentscopyCustomView : UIKit.UIView {
+  var cameraPreview: OILiveness2D.CameraPreviewView! { get }
+  var cameraMask: UIKit.UIView! { get }
+  var backButton: UIKit.UIButton! { get }
+  var closeButton: UIKit.UIButton! { get }
+  var backIndicatorView: UIKit.UIView! { get }
+  var frontIndicatorView: UIKit.UIView! { get }
+  var instructionLabel: UIKit.UILabel! { get }
+  var cameraVisualizer: UIKit.UIView! { get }
+  var previewImageView: UIKit.UIImageView! { get }
+  var captureButton: UIKit.UIButton! { get }
+  var usePictureButton: UIKit.UIButton! { get }
+  var takeNewPictureButton: UIKit.UIButton! { get }
+  func displayConfirmationSheet(visibility: OILiveness2D.Visibility, animated: Swift.Bool)
+  func setFocus(to focusElement: OILiveness2D.FocusIndicator, animated: Swift.Bool)
+  func setUsePictureButtonTitle(to newTitle: Swift.String)
+}
+public protocol FaceCaptchaCustomIntructionsView : UIKit.UIView {
+  var backButton: UIKit.UIButton! { get }
+  var continueButton: UIKit.UIButton! { get }
+}
+extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPermissionDelegate {
+  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
+}
+public enum DocumentscopyResultType {
+  case success
+  case tryAgain
+  case error(OILiveness2D.DocumentscopyError)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
+  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
+  @objc deinit
+}
+public enum FaceCaptchaResultType {
+  case success(OILiveness2D.FaceCaptchaSuccessModel)
+  case error(OILiveness2D.FaceCaptchaError)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class CameraPreviewView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var videoPreviewLayer: AVFoundation.AVCaptureVideoPreviewLayer {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var session: AVFoundation.AVCaptureSession? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol FaceCaptchaCustomView : UIKit.UIView {
+  var cameraPreview: OILiveness2D.CameraPreviewView! { get }
+  var cameraOverlay: UIKit.UIView! { get }
+  var backButton: UIKit.UIButton! { get }
+  var closeButton: UIKit.UIButton! { get }
+  var progressView: UIKit.UIView! { get }
+  var instructionLabel: UIKit.UILabel! { get }
+  var challengeIcon: UIKit.UIImageView! { get }
+  var challengeText: UIKit.UIImageView! { get }
+  var recognizingLabel: UIKit.UILabel! { get }
+  var startButton: UIKit.UIButton! { get }
+  func updateProgress(to newValue: Swift.Double)
+  func setInstructionLabelTitle(to newTitle: Swift.String)
+}
+public protocol DocumentscopyDelegate : AnyObject {
+  func handleDocumentscopyCompleted()
+  func handleDocumentscopyError(error: OILiveness2D.DocumentscopyError)
+  func handleDocumentscopyCanceled()
+}
+public protocol FaceCaptchaDelegate : AnyObject {
+  func handleSuccess(model: OILiveness2D.FaceCaptchaSuccessModel)
+  func handleError(error: OILiveness2D.FaceCaptchaError)
+  func handleCanceled()
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridFaceCaptchaViewController : OILiveness2D.FaceCaptchaViewController {
+  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.FaceCaptchaDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
+  @objc deinit
+}
+extension OILiveness2D.DocumentscopyError : Swift.Equatable {}
+extension OILiveness2D.DocumentscopyError : Swift.Hashable {}
+extension OILiveness2D.FocusIndicator : Swift.Equatable {}
+extension OILiveness2D.FocusIndicator : Swift.Hashable {}
+extension OILiveness2D.FaceCaptchaError : Swift.Equatable {}
+extension OILiveness2D.FaceCaptchaError : Swift.Hashable {}

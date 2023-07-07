@@ -5,7 +5,7 @@ Você pode utilizar o SDK padrão e por meio dele, também customizar a visualiz
 
 ## Configuração das telas customizáveis
 
-A customização das telas é semelhante ao **Liveness**. Ela é feita por meio da criação de objetos do tipo **UIViews**(via código ou via Interface Builder), que implementem os protocolos definidos para cada tela.
+A customização das telas é semelhante ao **Liveness**. Ela é feita por meio da criação de objetos do tipo `UIView`(_via código ou via Interface Builder_), que implementem os protocolos definidos para cada tela.
 
 Além das subviews especificadas, a view customizada pode conter outros elementos, apenas tomando cuidado para que os mesmos não interfiram nas subviews funcionais.
 
@@ -19,7 +19,7 @@ Todas as *views* customizadas são passadas via construtor da classe ``Documents
 ```swift
 let controller = DocumentscopyViewController(
     appKey: appKey, 
-    baseUrl: baseURL, 
+    environment: environment, 
     delegate: self,
     customInstructionView: CustomInstructionView(),
     customView: CustomView(),
@@ -43,6 +43,8 @@ public protocol DocumentscopyCustomInstructionView: UIView {
     var backButton: UIButton! { get }
     var viewCNH: UIView! { get }
     var viewRG: UIView! { get }
+
+    func changeLoadingVisibility(to visibility: Visibility)
 }
 ```
 
@@ -51,6 +53,7 @@ public protocol DocumentscopyCustomInstructionView: UIView {
 | (**1**) | `backButton` | Botão para função voltar da navegação. |
 | (**2**) | `viewCNH` | View que terá a ação de iniciar o fluxo de captura do documento CNH. |
 | (**3**) | `viewRG` | View que terá a ação de iniciar o fluxo de captura do documento RG. |
+|         | `changeLoadingVisibility(to:)` | Método responsável por indicar o estado do _loading_ na tela de instruções, podendo receber dois valores:<br/>- **hidden** (_esconder o loading_)<br/>- **displayed** (_mostrar o loading_). |
 
 <br/>
 <img src="../Images/Documentscopy/dc_instructions.png" width="432" height="396" />
@@ -64,7 +67,7 @@ Essa view deve estar em conformidade com o protocolo ``DocumentscopyCustomView``
 
 ```swift
 public protocol DocumentscopyCustomView: UIView {
-    var cameraPreview: DocumentscopyCameraPreviewView! { get }    
+    var cameraPreview: CameraPreviewView! { get }    
     var cameraMask: UIView! { get }
     var backButton: UIButton! { get }
     var closeButton: UIButton! { get }    
@@ -77,46 +80,46 @@ public protocol DocumentscopyCustomView: UIView {
     var usePictureButton: UIButton! { get }    
     var takeNewPictureButton: UIButton! { get }
 
-    func displayConfirmationSheet(visibility: DocumentscopyConfirmationSheetVisibility, animated: Bool)
-    func setFocus(to focusElement: DocumentscopyFocusIndicator, animated: Bool)
+    func displayConfirmationSheet(visibility: Visibility, animated: Bool)
+    func setFocus(to focusElement: FocusIndicator, animated: Bool)
     func setUsePictureButtonTitle(to newTitle: String)
 }
 ```
 
 | **Indice** | **Elemento** | **Descrição** |
 |:-----------|:-------------|:--------------|
-| (**1**) | `backButton` | UIButton para fechar a tela. |
-| (**2**) | `closeButton` | UIButton para fechar a tela. |
-| (**3**) | `frontIndicatorView` | View que indica o momento de utilizar a frente do documento. |
-| (**4**) | `backIndicatorView` | View que indica o momento de utilizar o verso do documento. |
-| (**5**) | `instructionLabel` | Texto informativo com orientação da captura, é exibido por apenas alguns segundos. |
-| (**6**) | `cameraPreview` | Nesta view será colocado o preview da câmera. |
-| (**7**) | `cameraVisualizer` | View que determina onde o preview câmera será visível. |
-| (**8**) | `cameraMask` | View que determina onde a camera não será visível. |
-| (**9**) | `captureButton` | Botão para capturar foto. |
-| (**10**) | `previewImageView` | UIImageView onde será exibida a imagem capturada para o usuário confirmar se ficou boa. |
+| (**1**)  | `backButton`           | UIButton para fechar a tela. |
+| (**2**)  | `closeButton`          | UIButton para fechar a tela. |
+| (**3**)  | `frontIndicatorView`   | View que indica o momento de utilizar a frente do documento. |
+| (**4**)  | `backIndicatorView`    | View que indica o momento de utilizar o verso do documento. |
+| (**5**)  | `instructionLabel`     | Texto informativo com orientação da captura, é exibido por apenas alguns segundos. |
+| (**6**)  | `cameraPreview`        | Nesta view será colocado o preview da câmera. |
+| (**7**)  | `cameraVisualizer`     | View que determina onde o preview câmera será visível. |
+| (**8**)  | `cameraMask`           | View que determina onde a camera não será visível. |
+| (**9**)  | `captureButton`        | Botão para capturar foto. |
+| (**10**) | `previewImageView`     | UIImageView onde será exibida a imagem capturada para o usuário confirmar se ficou boa. |
 | (**11**) | `takeNewPictureButton` | Botão para que o usuário capture a foto novamente. |
-| (**12**) | `usePictureButton` | Botão para que o usuário confirme a foto capturada. |
-|          | `displayConfirmationSheet(visibility:animated:)` | Método que indica quando a *view* de confirmação de imagem deve ou não ser mostrada, esse método possui dois parâmetros: <br/> - **visibility** que é um `enum` do tipo ``DocumentscopyConfirmationSheetVisibility`` que indica o estado da *view* de confirmação;<br/> - **animated** que indica quando é recomendado que esse comportamento seja feito com animação. |
-|          | `setFocus(to:animated:)` | Método que indica qual o indicador de face do documento deve estar em foco no momento, esse método possui dois parâmetros: <br/> - **to (*focusElement*)** que é um `enum` do tipo ``DocumentscopyFocusIndicator`` que possui os valores de *frontIndicator* e *backIndicator* que representam a frente e o verso do documento respectivamente;<br/> - **animated** que indica quando é recomendado que esse comportamento seja feito com animação. |
+| (**12**) | `usePictureButton`     | Botão para que o usuário confirme a foto capturada. |
+|          | `displayConfirmationSheet(visibility:animated:)` | Método que indica quando a *view* de confirmação de imagem deve ou não ser mostrada, esse método possui dois parâmetros: <br/> - **visibility** que é um `enum` do tipo ``Visibility`` que indica o estado da *view* de confirmação;<br/> - **animated** que indica quando é recomendado que esse comportamento seja feito com animação. |
+|          | `setFocus(to:animated:)` | Método que indica qual o indicador de face do documento deve estar em foco no momento, esse método possui dois parâmetros: <br/> - **to (*focusElement*)** que é um `enum` do tipo ``FocusIndicator`` que possui os valores de *frontIndicator* e *backIndicator* que representam a frente e o verso do documento respectivamente;<br/> - **animated** que indica quando é recomendado que esse comportamento seja feito com animação. |
 |          | `setUsePictureButtonTitle(to:)` | Método responsável por atribuir um novo titlulo para o botão de usar foto (`usePictureButton`). |
 
 <br/>
 <div>
     <img src="../Images/Documentscopy/dc_camera_1.png" width="432" height="396" />
     <img src="../Images/Documentscopy/dc_camera_2.png" width="432" height="396" />
-<div/>
+</div>
     
-**DocumentscopyCameraPreviewView**
+**CameraPreviewView**
 
 É uma classe customizada que herda de uma `UIView`.
 
 <br/>
 
-**DocumentscopyConfirmationSheetVisibility**
+**Visibility**
 
 ```swift
-public enum DocumentscopyConfirmationSheetVisibility {
+public enum Visibility {
     case displayed
     case hidden
 }
@@ -124,12 +127,12 @@ public enum DocumentscopyConfirmationSheetVisibility {
 
 <br/>
 
-**DocumentscopyFocusIndicator**
+**FocusIndicator**
 
 ```swift
-public enum DocumentscopyFocusIndicator {
-    case frontIndicator
-    case backIndicator
+public enum FocusIndicator {
+    case front
+    case back
 }
 ```
 
@@ -162,7 +165,7 @@ public protocol DocumentscopyCustomResultView: UIView {
 
 | **Indice** | **Elemento** | **Descrição** |
 |:-----------|:-------------|:--------------|
-| (**1**) | `resultButton` | Botão para fechar o fluxo de reconhecimento de documento. |
+| (**1**) | `resultButton` | Botão que indicará qual a próxima ação na tela de resultados. |
 |         | `display(for:)` | Esse método recebe como parâmetro um `enum` do tipo `DocumentscopyResultType` que indica qual resultado deve ser mostrado. |
 
 <br/>
@@ -188,10 +191,10 @@ public enum DocumentscopyResultType {
 
 ### `customCameraPermissionView`
 
-Essa view deve estar em conformidade com o protocolo ``DocumentscopyCustomCameraPermissionView`` que contém os seguintes atributos:
+Essa view deve estar em conformidade com o protocolo ``CustomCameraPermissionView`` que contém os seguintes atributos:
 
 ```swift
-public protocol DocumentscopyCustomCameraPermissionView: UIView {
+public protocol CustomCameraPermissionView: UIView {
     var backButton: UIButton! { get }
     var checkPermissionButton: UIButton! { get }
     var openSettingsButton: UIButton! { get }
@@ -203,14 +206,14 @@ public protocol DocumentscopyCustomCameraPermissionView: UIView {
 
 | **Indice** | **Elemento** | **Descrição** |
 |:-----------|:-------------|:--------------|
-| (**1**) | `backButton` | Botão para função voltar da navegação. |
+| (**1**) | `backButton`            | Botão para função voltar da navegação. |
 | (**2**) | `checkPermissionButton` | Botão responsável por verificar a permissão de câmera e solicitá-la se necessário. |
-| (**3**) | `openSettingsButton` | Botão que redireciona o usuário para o menu de permissões do aplicativo na configurações do dispositivo. |
-| (**4**) | `closeButton` | Botão que fecha o fluxo de validação da permissão de câmera e volta para tela anterior. |
-|         | `showBottomSheet(visibility:)` | Método responsável por indicar o momento de mostrar os botões de ``openSettingsButton`` e ``closeButton``, podendo receber dois valores: **hidden** (esconder os botões) e **displayed** (mostrar os botões). |
+| (**3**) | `openSettingsButton`    | Botão que redireciona o usuário para o menu de permissões do aplicativo na configurações do dispositivo. |
+| (**4**) | `closeButton`           | Botão que fecha o fluxo de validação da permissão de câmera e volta para tela anterior. |
+|         | `showBottomSheet(visibility:)` | Método responsável por indicar o momento de mostrar os botões de ``openSettingsButton`` e ``closeButton``, podendo receber dois valores:<br/>- **hidden** (_esconder os botões_)<br/>- **displayed** (_mostrar os botões_) |
 
 <br/>
 <div>
     <img src="../Images/camera_permission_1.png" width="432" height="396" />
     <img src="../Images/camera_permission_2.png" width="432" height="396" />
-<div/>
+</div>

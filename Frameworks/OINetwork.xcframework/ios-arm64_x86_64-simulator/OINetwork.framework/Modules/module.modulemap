@@ -1,0 +1,11 @@
+framework module OINetwork {
+  umbrella header "OINetwork.h"
+
+  export *
+  module * { export * }
+}
+
+module OINetwork.Swift {
+  header "OINetwork-Swift.h"
+  requires objc
+}
