@@ -18,6 +18,7 @@ Todas as *views* customizadas são passadas via construtor da classe ``Documents
 
 ```swift
 let controller = DocumentscopyViewController(
+    ticket: ticket,
     appKey: appKey, 
     environment: environment, 
     delegate: self,
