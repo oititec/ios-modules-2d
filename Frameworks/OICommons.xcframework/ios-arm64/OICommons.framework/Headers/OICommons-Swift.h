@@ -254,15 +254,6 @@ using UInt = size_t;
 #if defined(__OBJC__)
 @class NSCoder;
 
-SWIFT_CLASS("_TtC9OICommons17CameraPreviewView")
-@interface CameraPreviewView : UIView
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layerClass;)
-+ (Class _Nonnull)layerClass SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS("_TtC9OICommons14ViewInViewCode")
 @interface ViewInViewCode : UIView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;

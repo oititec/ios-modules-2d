@@ -37,21 +37,6 @@ extension Swift.UInt32 {
     self = val0 | val1 | val2 | val3
   }
 }
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class CameraPreviewView : UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) public var videoPreviewLayer: AVFoundation.AVCaptureVideoPreviewLayer {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) public var session: AVFoundation.AVCaptureSession? {
-    get
-    set
-  }
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public class var layerClass: Swift.AnyClass {
-    @objc get
-  }
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
 extension Swift.Collection where Self.Element == Swift.UInt8, Self.Index == Swift.Int {
   @inlinable internal func toUInt32Array() -> Swift.Array<Swift.UInt32> {
     guard !isEmpty else {

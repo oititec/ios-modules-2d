@@ -137,8 +137,8 @@ public struct SpinnerConfiguration : OIComponents.LoadingViewConfigurationProtoc
   public let loadingType: OIComponents.LoadingTypes
   public let loadingColor: UIKit.UIColor
   public let strokeWidth: CoreFoundation.CGFloat
-  public let scaleFactor: CoreFoundation.CGFloat
-  public init(backgroundColor: UIKit.UIColor, loadingColor: UIKit.UIColor, strokeWidth: CoreFoundation.CGFloat, scaleFactor: CoreFoundation.CGFloat)
+  public let scaleFactor: Swift.Int
+  public init(backgroundColor: UIKit.UIColor, loadingColor: UIKit.UIColor, strokeWidth: CoreFoundation.CGFloat, scaleFactor: Swift.Int)
   public func createLoadingView() -> UIKit.UIView
 }
 extension OIComponents.ConstraintBuilder {
@@ -477,7 +477,8 @@ public struct ActivityIndicatorConfiguration : OIComponents.LoadingViewConfigura
   public let loadingType: OIComponents.LoadingTypes
   public let loadingColor: UIKit.UIColor
   public let backgroundColor: UIKit.UIColor
-  public init(loadingColor: UIKit.UIColor, backgroundColor: UIKit.UIColor)
+  public let scaleFactor: Swift.Int
+  public init(loadingColor: UIKit.UIColor, backgroundColor: UIKit.UIColor, scaleFactor: Swift.Int)
   public func createLoadingView() -> UIKit.UIView
 }
 public enum ButtonComponentStyles {
