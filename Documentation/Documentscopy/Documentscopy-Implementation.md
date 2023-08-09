@@ -10,12 +10,14 @@ import OILiveness2D
 ```
 
 2. Instancie `DocumentscopyViewController`, passando os seguintes parâmetros:
+- **ticket** (_opcional_): Token para uso da Certiface API.
 - **appKey**: App Key recebida previamente.
 - **environment**: valor que indica o ambiente de execução desejado: <br/>- **HML**: Homologação<br/>- **PRD**: Produção.
 - **delegate**: delegate que implementará os métodos para tratar o retorno da documentoscopia.
 
 ```swift
 let controller = DocumentscopyViewController(
+    ticket: ticket,
     appKey: appKey, 
     environment: environment,
     delegate: self

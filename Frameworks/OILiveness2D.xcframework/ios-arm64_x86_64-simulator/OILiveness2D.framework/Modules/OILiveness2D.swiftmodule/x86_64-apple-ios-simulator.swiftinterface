@@ -34,7 +34,7 @@ public enum DocumentscopyError : Swift.Error {
   }
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentscopyViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customInstructionView: OILiveness2D.DocumentscopyCustomInstructionView? = nil, customView: OILiveness2D.DocumentscopyCustomView? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: OILiveness2D.DocumentscopyCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customInstructionView: OILiveness2D.DocumentscopyCustomInstructionView? = nil, customView: OILiveness2D.DocumentscopyCustomView? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: OILiveness2D.DocumentscopyCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
   @objc deinit
 }
 extension OILiveness2D.DocumentscopyViewController : UIKit.UIGestureRecognizerDelegate {
@@ -130,7 +130,7 @@ public enum DocumentscopyResultType {
   case error(OILiveness2D.DocumentscopyError)
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
-  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
+  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
   @objc deinit
 }
 public enum FaceCaptchaResultType {
