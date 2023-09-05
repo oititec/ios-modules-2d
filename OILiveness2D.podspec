@@ -8,11 +8,7 @@ Pod::Spec.new do |s|
     s.author           = 'Oititec'
     s.platform         = :ios, '11.0'
     s.swift_version    = '5.0'
-    s.vendored_frameworks = [
-        'Frameworks/OILiveness2D.xcframework', 
-        'Frameworks/OINetwork.xcframework', 
-        'Frameworks/OIComponents.xcframework', 
-        'Frameworks/OICommons.xcframework'
-    ]
+    s.vendored_frameworks = 'Frameworks/OILiveness2D.xcframework'
+    s.dependency       = 'OICommonModules'
   end
   
