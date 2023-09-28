@@ -43,10 +43,22 @@ extension OIComponents.ConstraintBuilder {
   public func trailing(anchor layoutGuide: UIKit.UILayoutGuide, padding: CoreFoundation.CGFloat = 0.0) -> OIComponents.ConstraintBuilder
 }
 public struct ButtonComponentModel {
-  public init(title: Swift.String, size: OIComponents.ComponentSize, icon: OIComponents.ComponentIcon, loadingIcon: UIKit.UIImage? = nil, highlightedStyle: OIComponents.ButtonComponentStyles, normalStyle: OIComponents.ButtonComponentStyles, disabledStyle: OIComponents.ButtonComponentStyles)
-  public init(size: OIComponents.ComponentSize, icon: OIComponents.ComponentIcon, loadingIcon: UIKit.UIImage? = nil, highlightedStyle: OIComponents.ButtonComponentStyles, normalStyle: OIComponents.ButtonComponentStyles, disabledStyle: OIComponents.ButtonComponentStyles)
+  public init(title: Swift.String? = nil, titleFont: UIKit.UIFont? = nil, type: OIComponents.ButtonComponentType = .complex, size: OIComponents.ComponentSize, icon: OIComponents.ComponentIcon, loadingIcon: UIKit.UIImage? = nil, highlightedStyle: OIComponents.ButtonComponentStyles, normalStyle: OIComponents.ButtonComponentStyles, disabledStyle: OIComponents.ButtonComponentStyles)
 }
 public struct ButtonComponentAppearance {
+  public let backgroundColor: UIKit.UIColor
+  public let borderColor: UIKit.UIColor
+  public let contentColor: UIKit.UIColor
+  public init(backgroundColor: UIKit.UIColor, borderColor: UIKit.UIColor, contentColor: UIKit.UIColor)
+}
+public enum ButtonComponentType {
+  case simple
+  case complex
+  public static func == (a: OIComponents.ButtonComponentType, b: OIComponents.ButtonComponentType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
 }
 @objc @_Concurrency.MainActor(unsafe) open class InstructionsView : UIKit.UIView {
   @_Concurrency.MainActor(unsafe) final public let backSquareButton: OIComponents.SquareButtonComponent
@@ -398,6 +410,43 @@ public struct BaseFieldModel {
   public var size: OIComponents.TextFieldComponentSize
   public var icon: OIComponents.ComponentIcon
 }
+public struct CheckCameraPermissionViewProperties {
+  public var backButtonIcon: UIKit.UIImage?
+  public var backButtonNormalStyle: OIComponents.ButtonComponentStyles
+  public var cameraImage: UIKit.UIImage?
+  public var cameraImageColor: UIKit.UIColor
+  public var title: Swift.String
+  public var titleColor: UIKit.UIColor
+  public var titleFont: UIKit.UIFont
+  public var caption: Swift.String
+  public var captionColor: UIKit.UIColor
+  public var captionFont: UIKit.UIFont
+  public var checkPermissionButtonText: Swift.String
+  public var checkPermissionButtonTextFont: UIKit.UIFont
+  public var checkPermissionButtonHighlightedStyle: OIComponents.ButtonComponentStyles
+  public var checkPermissionButtonNormalStyle: OIComponents.ButtonComponentStyles
+  public var checkPermissionButtonDisabledStyle: OIComponents.ButtonComponentStyles
+  public var backgroundColor: UIKit.UIColor
+  public var bottomSheetCornerRadius: CoreFoundation.CGFloat
+  public var bottomSheetColor: UIKit.UIColor
+  public var bottomSheetTitle: Swift.String
+  public var bottomSheetTitleColor: UIKit.UIColor
+  public var bottomSheetTitleFont: UIKit.UIFont
+  public var bottomSheetCaption: Swift.String
+  public var bottomSheetCaptionFont: UIKit.UIFont
+  public var bottomSheetCaptionColor: UIKit.UIColor
+  public var openSettingsButtonText: Swift.String
+  public var openSettingsButtonTextFont: UIKit.UIFont
+  public var openSettingsButtonHighlightedStyle: OIComponents.ButtonComponentStyles
+  public var openSettingsButtonNormalStyle: OIComponents.ButtonComponentStyles
+  public var openSettingsButtonDisabledStyle: OIComponents.ButtonComponentStyles
+  public var closeButtonText: Swift.String
+  public var closeButtonTextFont: UIKit.UIFont
+  public var closeButtonHighlightedStyle: OIComponents.ButtonComponentStyles
+  public var closeButtonNormalStyle: OIComponents.ButtonComponentStyles
+  public var closeButtonDisabledStyle: OIComponents.ButtonComponentStyles
+  public init()
+}
 public struct OitiHeaderComponentModel {
   public init(oitiLogoImage: UIKit.UIImage?, optionsImage: UIKit.UIImage?, optionsButtonIdentifier: Swift.String)
 }
@@ -482,6 +531,8 @@ public struct ActivityIndicatorConfiguration : OIComponents.LoadingViewConfigura
   public func createLoadingView() -> UIKit.UIView
 }
 public enum ButtonComponentStyles {
+  case clear
+  case custom(OIComponents.ButtonComponentAppearance)
   case standardPrimaryHightlithed
   case standardPrimaryNormal
   case standardPrimaryDisabled
@@ -501,15 +552,13 @@ public enum ButtonComponentStyles {
   case onColorGhostHightlithed
   case onColorGhostNormal
   case onColorGhostDisabled
-  public static func == (a: OIComponents.ButtonComponentStyles, b: OIComponents.ButtonComponentStyles) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
+  public var appearance: OIComponents.ButtonComponentAppearance {
     get
   }
 }
 @objc @_Concurrency.MainActor(unsafe) public class CheckCameraPermissionViewController : UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) weak public var delegate: OIComponents.CheckCameraPermissionDelegate?
-  @_Concurrency.MainActor(unsafe) public init(customView: OIComponents.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) public init(customizationProperties: OIComponents.CheckCameraPermissionViewProperties = .init(), customView: OIComponents.CustomCameraPermissionView? = nil)
   @available(*, unavailable)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func loadView()
@@ -647,6 +696,8 @@ extension OIComponents.DesignTokens {
   @_Concurrency.MainActor(unsafe) @objc public func textViewDidEndEditing(_ textView: UIKit.UITextView)
   @objc deinit
 }
+extension OIComponents.ButtonComponentType : Swift.Equatable {}
+extension OIComponents.ButtonComponentType : Swift.Hashable {}
 extension OIComponents.LoadingTypes : Swift.Equatable {}
 extension OIComponents.LoadingTypes : Swift.Hashable {}
 extension OIComponents.CharacterType : Swift.Equatable {}
@@ -660,7 +711,5 @@ extension OIComponents.TextFieldComponentSize : Swift.Equatable {}
 extension OIComponents.TextFieldComponentSize : Swift.Hashable {}
 extension OIComponents.LinkComponentStyles : Swift.Equatable {}
 extension OIComponents.LinkComponentStyles : Swift.Hashable {}
-extension OIComponents.ButtonComponentStyles : Swift.Equatable {}
-extension OIComponents.ButtonComponentStyles : Swift.Hashable {}
 extension OIComponents.ComponentSize : Swift.Equatable {}
 extension OIComponents.ComponentSize : Swift.Hashable {}
