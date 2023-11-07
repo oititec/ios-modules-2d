@@ -321,7 +321,7 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setCaptureBackIndicatorUnfocusedState(withImage image: UIKit.UIImage?, textColor: UIKit.UIColor? = nil, textFont: UIKit.UIFont? = nil) -> Self
   @discardableResult
-  final public func setCaptureInstructionGuideText(_ text: Swift.String) -> Self
+  final public func setCaptureInstructionGuideText(forFront frontText: Swift.String?, back backText: Swift.String? = nil) -> Self
   @discardableResult
   final public func setCaptureInstructionConfirmationText(_ text: Swift.String) -> Self
   @discardableResult
