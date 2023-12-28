@@ -558,12 +558,14 @@ public enum ButtonComponentStyles {
 }
 @objc @_Concurrency.MainActor(unsafe) public class CheckCameraPermissionViewController : UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) weak public var delegate: OIComponents.CheckCameraPermissionDelegate?
+  @_Concurrency.MainActor(unsafe) weak public var trackerDelegate: OIComponents.CheckCameraPermissionTrackerDelegate?
   @_Concurrency.MainActor(unsafe) public init(customizationProperties: OIComponents.CheckCameraPermissionViewProperties = .init(), customView: OIComponents.CustomCameraPermissionView? = nil)
   @available(*, unavailable)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func loadView()
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc deinit
 }
 public enum ComponentSize {
@@ -671,6 +673,13 @@ extension OIComponents.DesignTokens {
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidChangeSelection(_ textField: UIKit.UITextField)
   @objc deinit
+}
+public protocol CheckCameraPermissionTrackerDelegate : AnyObject {
+  func trackViewDidAppear()
+  func trackGoBackAction()
+  func trackCheckPermissionAction()
+  func trackGoToSettingsAction()
+  func trackCloseAction()
 }
 @objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class SquareButtonComponent : OIComponents.ButtonComponent {
   @_Concurrency.MainActor(unsafe) public func layoutForSuperview(_ superview: UIKit.UIView, with layoutContraintModel: OIComponents.ButtonLayoutContraintsModel)

@@ -1,0 +1,142 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OISecurity
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CommonCrypto
+import CoreLocation
+import Foundation
+import Network
+import OINetwork
+@_exported import OISecurity
+import Security
+import Swift
+import UIKit.UIDevice
+import UIKit
+import _Concurrency
+import _StringProcessing
+@_hasMissingDesignatedInitializers public class DLCoordinate {
+  final public let latitude: Swift.Double
+  final public let longitude: Swift.Double
+  @objc deinit
+}
+public struct SecurityPayload {
+}
+public struct SecurityEvent {
+}
+public struct CryptoManager {
+  public static func encrypt(_ value: Foundation.NSData, withKey secretKey: Swift.String) -> Swift.String?
+  public static func decrypt(_ value: Swift.String, withKey secretKey: Swift.String) -> Foundation.Data?
+}
+public enum PersistenceOption : Swift.String {
+  case index
+  case collectionID
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class SecurityManager {
+  @objc deinit
+  public static func session(for sessionIdentifier: Swift.String) -> OISecurity.SecurityManager?
+  final public func requestLocation()
+  final public func trackEvent(_ event: OISecurity.EventType)
+  final public func uploadDeviceInfoAndLocation(appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
+  final public func uploadData(with appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
+}
+extension OISecurity.SecurityManager : Swift.Hashable {
+  public static func == (lhs: OISecurity.SecurityManager, rhs: OISecurity.SecurityManager) -> Swift.Bool
+  final public func hash(into hasher: inout Swift.Hasher)
+  final public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum EventType : Swift.String, Swift.CaseIterable {
+  case STATE_L3_hybridLoadingView
+  case STATE_L3_instructionView
+  case ACTION_L3_instructionContinueBtn
+  case ACTION_L3_instructionBackBtn
+  case STATE_L3FT_flow
+  case SYSTEM_L3_callbackSuccess
+  case SYSTEM_L3_callbackError
+  case STATE_L3_cameraPermissionView
+  case ACTION_L3_cameraPermissionBackBtn
+  case ACTION_L3_cameraPermissionCheckBtn
+  case ACTION_L3_cameraPermissionGoToSettingsBtn
+  case ACTION_L3_cameraPermissionCloseBtn
+  case STATE_L2_hybridLoadingView
+  case STATE_L2_instructionView
+  case ACTION_L2_instructionContinueBtn
+  case ACTION_L2_instructionBackBtn
+  case STATE_L2_livenessView
+  case ACTION_L2_livenessStartBtn
+  case ACTION_L2_livenessBackBtn
+  case ACTION_L2_livenessCloseBtn
+  case LOG_L2_stepChallenge
+  case LOG_L2_stepProcessImage
+  case STATE_L2_loadingView
+  case STATE_L2_resultSuccessView
+  case STATE_L2_resultErrorView
+  case ACTION_L2_resultErrorBtn
+  case SYSTEM_L2_callbackSuccess
+  case SYSTEM_L2_callbackCancelled
+  case SYSTEM_L2_callbackError
+  case STATE_L2_cameraPermissionView
+  case ACTION_L2_cameraPermissionBackBtn
+  case ACTION_L2_cameraPermissionCheckBtn
+  case ACTION_L2_cameraPermissionGoToSettingsBtn
+  case ACTION_L2_cameraPermissionCloseBtn
+  case SYSTEM_DC_hasTicket
+  case STATE_DC_hybridLoadingView
+  case STATE_DC_instructionView
+  case ACTION_DC_instructionBackBtn
+  case ACTION_DC_instructionCNHOption
+  case ACTION_DC_instructionRGOption
+  case STATE_DC_captureView
+  case STATE_DC_takePictureFrontDoc
+  case ACTION_DC_takePictureFrontDocBtn
+  case ACTION_DC_takePictureFrontDocBackBtn
+  case ACTION_DC_takePictureFrontDocCloseBtn
+  case STATE_DC_reviewPictureFrontDoc
+  case ACTION_DC_reviewPictureFrontDocRefuseBtn
+  case ACTION_DC_reviewPictureFrontDocConfirmBtn
+  case ACTION_DC_reviewPictureFrontDocBackBtn
+  case ACTION_DC_reviewPictureFrontDocCloseBtn
+  case STATE_DC_takePictureBackDoc
+  case ACTION_DC_takePictureBackDocBtn
+  case ACTION_DC_takePictureBackDocBackBtn
+  case ACTION_DC_takePictureBackDocCloseBtn
+  case STATE_DC_reviewPictureBackDoc
+  case ACTION_DC_reviewPictureBackDocRefuseBtn
+  case ACTION_DC_reviewPictureBackDocConfirmBtn
+  case ACTION_DC_reviewPictureBackDocBackBtn
+  case ACTION_DC_reviewPictureBackDocCloseBtn
+  case STATE_DC_loadingView
+  case STATE_DC_resultSuccessView
+  case STATE_DC_resultErrorView
+  case STATE_DC_resultRetryView
+  case ACTION_DC_resultRetryBtn
+  case SYSTEM_DC_callbackSuccess
+  case SYSTEM_DC_callbackCancelled
+  case SYSTEM_DC_callbackError
+  case STATE_DC_cameraPermissionView
+  case ACTION_DC_cameraPermissionBackBtn
+  case ACTION_DC_cameraPermissionCheckBtn
+  case ACTION_DC_cameraPermissionGoToSettingsBtn
+  case ACTION_DC_cameraPermissionCloseBtn
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [OISecurity.EventType]
+  public typealias RawValue = Swift.String
+  public static var allCases: [OISecurity.EventType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension OISecurity.PersistenceOption : Swift.Equatable {}
+extension OISecurity.PersistenceOption : Swift.Hashable {}
+extension OISecurity.PersistenceOption : Swift.RawRepresentable {}
+extension OISecurity.EventType : Swift.Equatable {}
+extension OISecurity.EventType : Swift.Hashable {}
+extension OISecurity.EventType : Swift.RawRepresentable {}
