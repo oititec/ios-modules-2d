@@ -9,6 +9,7 @@ import OICommons
 import OIComponents
 @_exported import OILiveness2D
 import OINetwork
+import OISecurity
 import Swift
 import UIKit.UIBezierPath
 import UIKit.UIButton
@@ -71,15 +72,24 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentscopyViewController : UIKit.UINavigationController {
   @_Concurrency.MainActor(unsafe) convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil, customInstructionView: OILiveness2D.DocumentscopyCustomInstructionView? = nil, customView: OILiveness2D.DocumentscopyCustomView? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: OILiveness2D.DocumentscopyCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
   @objc deinit
 }
 extension OILiveness2D.DocumentscopyViewController : UIKit.UIGestureRecognizerDelegate {
   @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
 }
+extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPermissionTrackerDelegate {
+  @_Concurrency.MainActor(unsafe) public func trackViewDidAppear()
+  @_Concurrency.MainActor(unsafe) public func trackGoBackAction()
+  @_Concurrency.MainActor(unsafe) public func trackCheckPermissionAction()
+  @_Concurrency.MainActor(unsafe) public func trackGoToSettingsAction()
+  @_Concurrency.MainActor(unsafe) public func trackCloseAction()
+}
 public struct DocumentscopyCustomizationTheme {
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class FaceCaptchaViewController : UIKit.UINavigationController {
   @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.FaceCaptchaDelegate, customInstructionsView: OILiveness2D.FaceCaptchaCustomIntructionsView? = nil, customLivenessView: OILiveness2D.FaceCaptchaCustomView? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: OILiveness2D.FaceCaptchaCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc deinit
 }
 extension OILiveness2D.FaceCaptchaViewController : UIKit.UIGestureRecognizerDelegate {
