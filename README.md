@@ -1,74 +1,19 @@
+<p style="align: center;">
+  <img src="Images/OitiHeader.png"/>
+</p>
+
 #  Liveness 2D para iOS
 
-Neste repositório você vai encontrar as documentações para **iOS** sobre **FaceCaptcha** e **Documentoscopia**.
+Neste repositório você vai encontrar os changelogs dos módulos **FaceCaptcha** e **Documentoscopia**.
 
-##  Instalação
+### Guias de integração, uso e customização
 
-O SDK está disponível via [CocoaPods](https://cocoapods.org/about) *(Forma recomendada)* ou via instalação manual.
+Todos os guias relacionados aos módulos do **Liveness 2D** estão disponíveis no **DevCenter**:
 
-###  CocoaPods
-1. Caso não possua um arquivo `Podfile` no seu projeto, basta executar o comando abaixo na raiz do projeto para um novo arquivo ser criado.
-
-```rb
-pod init
-```
-
-2. No início do `Podfile`, inclua a linha abaixo:
-
-```rb
-source 'https://github.com/oititec/ios-artifactory.git'
-```
-
-3. Em seguida, adicione a dependência a seguir:
-
-```rb
-pod 'OILiveness2D', '~> x.y.z'
-```
-
-4. Execute o comando de instalação dos *pods*:
-```rb
-pod install
-```
-
-5. Abra o arquivo `.xcworkspace` do seu projeto.
-
-###  Instalação manual
-
-Os XCFramwworks para instalação manual estão disponíveis na pasta [Frameworks](/Frameworks).
-
-##   Como integrar?
-
-###  Permissões de acesso
-
-No `Info.plist` do projeto, adicione a descrição de uso de câmera (`Privacy - Camera Usage Description`).
-
-![Info.plist Camera Permission](Documentation/Images/info_plist_camera_permission.jpg)
-
-###  FaceCaptcha
-As instruções de implementação do **FaceCaptcha** podem ser acessadas nos links abaixo:
-
-  - [Descrição e Resultados](Documentation/FaceCaptcha/FaceCaptcha-Description.md);
-  - [Fluxo de telas](Documentation/FaceCaptcha/FaceCaptcha-ScreensFlow.md);
-  - [Guia de implementação](Documentation/FaceCaptcha/FaceCaptcha-Implementation.md);
-  - [Guia de customização](Documentation/FaceCaptcha/FaceCaptcha-Customization.md).
-
-###  Documentoscopia
-
-As instruções de implementação da **Documentoscopia** podem ser acessadas nos links abaixo:
-
-  - [Descrição e Resultados](Documentation/Documentscopy/Documentscopy-Description.md);
-  - [Fluxo de telas](Documentation/Documentscopy/Documentscopy-ScreensFlow.md);
-  - [Guia de implementação](Documentation/Documentscopy/Documentscopy-Implementation.md);
-  - [Guia de customização](Documentation/Documentscopy/Documentscopy-Customization.md).
+- [Guias de integração](https://devcenter.certiface.io/docs/guia-de-integracao-ios)
+- [Guia de customização: Liveness2D](https://devcenter.certiface.io/docs/customizacao-liveness2d-ios)
+- [Guia de customização: DocCore](https://devcenter.certiface.io/docs/customizacao-doccore-ios)
 
 ### Changelog
-- As novidades das versões podem ser acessadas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
 
-### Breaking Changes
-- [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness2D.
-
-<br/>
-
-> ⚠️ **Importante**
-> <br/>Para conhecer o **Hub de Liveness**: [consulte este link.](https://devcenter.certiface.io/docs/hub-de-liveness)
-> <br/>Para conhecer o **Doc Core**: [consulte este link.](https://devcenter.certiface.io/docs/doc-core)
+- As novidades das versões podem ser acessadas [neste link](Changelogs/1.0.0.md).
