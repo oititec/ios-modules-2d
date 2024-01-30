@@ -1,74 +1,32 @@
-#  Liveness 2D para iOS
+<p style="align: center;">
+  <img src="Images/OitiHeader.png"/>
+</p>
 
-Neste repositório você vai encontrar as documentações para **iOS** sobre **FaceCaptcha** e **Documentoscopia**.
+# Oiti - Liveness 2D iOS
 
-##  Instalação
+Visite o sumário abaixo e conheça sobre as documentações de uso e integração, customização e releases notes do Liveness 2D para iOS.
 
-O SDK está disponível via [CocoaPods](https://cocoapods.org/about) *(Forma recomendada)* ou via instalação manual.
+**Simplificamos nossos guias de integração e de customização do nosso SDK iOS:**
 
-###  CocoaPods
-1. Caso não possua um arquivo `Podfile` no seu projeto, basta executar o comando abaixo na raiz do projeto para um novo arquivo ser criado.
+- [Guias de Instalação](https://devcenter.certiface.io/docs/guia-de-instalacao-ios)
+- [Guia de Uso e Integração](https://devcenter.certiface.io/docs/guia-de-uso-e-integracao-ios)
+- [Guia de Tratamento de Retornos](https://devcenter.certiface.io/docs/guia-de-tratamento-de-retorno-ios)
+- [Guia de Customização](https://devcenter.certiface.io/docs/customiza%C3%A7%C3%A3o-ios)
 
-```rb
-pod init
-```
+--- 
 
-2. No início do `Podfile`, inclua a linha abaixo:
-
-```rb
-source 'https://github.com/oititec/ios-artifactory.git'
-```
-
-3. Em seguida, adicione a dependência a seguir:
-
-```rb
-pod 'OILiveness2D', '~> x.y.z'
-```
-
-4. Execute o comando de instalação dos *pods*:
-```rb
-pod install
-```
-
-5. Abra o arquivo `.xcworkspace` do seu projeto.
-
-###  Instalação manual
-
-Os XCFramwworks para instalação manual estão disponíveis na pasta [Frameworks](/Frameworks).
-
-##   Como integrar?
-
-###  Permissões de acesso
-
-No `Info.plist` do projeto, adicione a descrição de uso de câmera (`Privacy - Camera Usage Description`).
-
-![Info.plist Camera Permission](Documentation/Images/info_plist_camera_permission.jpg)
-
-###  FaceCaptcha
-As instruções de implementação do **FaceCaptcha** podem ser acessadas nos links abaixo:
-
-  - [Descrição e Resultados](Documentation/FaceCaptcha/FaceCaptcha-Description.md);
-  - [Fluxo de telas](Documentation/FaceCaptcha/FaceCaptcha-ScreensFlow.md);
-  - [Guia de implementação](Documentation/FaceCaptcha/FaceCaptcha-Implementation.md);
-  - [Guia de customização](Documentation/FaceCaptcha/FaceCaptcha-Customization.md).
-
-###  Documentoscopia
-
-As instruções de implementação da **Documentoscopia** podem ser acessadas nos links abaixo:
-
-  - [Descrição e Resultados](Documentation/Documentscopy/Documentscopy-Description.md);
-  - [Fluxo de telas](Documentation/Documentscopy/Documentscopy-ScreensFlow.md);
-  - [Guia de implementação](Documentation/Documentscopy/Documentscopy-Implementation.md);
-  - [Guia de customização](Documentation/Documentscopy/Documentscopy-Customization.md).
+Neste repositório encontre também release notes dos módulos **FaceCaptcha** e **Documentoscopia**.
 
 ### Changelog
-- As novidades das versões podem ser acessadas [neste link](Documentation/MigrationGuide/Changelog/1.0.0.md).
 
-### Breaking Changes
-- [1.0.0](Documentation/MigrationGuide/BreakingChanges/1.0.0.md) - FaceCaptcha para OILiveness2D.
+- As novidades das versões podem ser acessadas [neste link](Changelogs/1.0.0.md).
 
-<br/>
+--- 
 
-> ⚠️ **Importante**
-> <br/>Para conhecer o **Hub de Liveness**: [consulte este link.](https://devcenter.certiface.io/docs/hub-de-liveness)
-> <br/>Para conhecer o **Doc Core**: [consulte este link.](https://devcenter.certiface.io/docs/doc-core)
+### Saiba mais
+
+- Conhecer as **ferramentas de prevenção à fraude** e suas funcionalidades:  [consulte este link](https://devcenter.certiface.io/docs/certiface-funcionalidades).
+
+- Acessar quadro de **compatibilidade de sistemas e drivers**: [consulte este link](https://devcenter.certiface.io/docs/compatibilidade-dos-servicos).
+
+- Entrar em contato com o **atendimento Oiti**: [consulte este link](https://devcenter.certiface.io/docs/portal-de-atendimento).
