@@ -19,7 +19,7 @@ Neste repositório encontre também release notes dos módulos **FaceCaptcha** e
 
 ### Changelog
 
-- As novidades das versões podem ser acessadas [neste link](Changelogs/1.0.0.md).
+- As novidades das versões podem ser acessadas [neste link](Changelogs/changelog.md).
 
 --- 
 
