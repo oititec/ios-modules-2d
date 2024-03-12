@@ -99,9 +99,22 @@ extension OILiveness2D.FaceCaptchaViewController : OIComponents.CheckCameraPermi
   @_Concurrency.MainActor(unsafe) public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
   @_Concurrency.MainActor(unsafe) public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
 }
+public struct HybridDocumentscopyCustomizationTheme {
+}
 public protocol DocumentscopyCustomResultView : UIKit.UIView {
   var resultButton: UIKit.UIButton! { get }
   func display(for resultType: OILiveness2D.DocumentscopyResultType)
+}
+extension OILiveness2D.HybridDocumentscopyCustomizationBuilder {
+  @discardableResult
+  final public func setLoadingBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setLoadingSpinner(withColor color: UIKit.UIColor?, width spinnerWidth: CoreFoundation.CGFloat? = nil, scaleFactor spinnerScaleFactor: Swift.Int? = nil) -> Self
+}
+@_hasMissingDesignatedInitializers final public class HybridDocumentscopyCustomizationBuilder {
+  public static func builder(withNativeBuilder nativeBuilder: OILiveness2D.DocumentscopyCustomizationBuilder) -> OILiveness2D.HybridDocumentscopyCustomizationBuilder
+  final public func build() -> OILiveness2D.HybridDocumentscopyCustomizationTheme
+  @objc deinit
 }
 public enum FocusIndicator {
   case front
@@ -226,7 +239,7 @@ public enum DocumentscopyResultType {
   case error(OILiveness2D.DocumentscopyError)
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
-  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil)
+  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customizationTheme hybridCustomizationTheme: OILiveness2D.HybridDocumentscopyCustomizationTheme? = nil)
   @objc deinit
 }
 public enum FaceCaptchaResultType {
