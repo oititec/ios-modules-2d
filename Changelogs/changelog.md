@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.1.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.0)
+_data: 12/03/2024_
+
+- **Melhorias**
+    - Ajustes nos objetos de customização focados no desenvolvimento híbrido.
+
 ## [versão 2.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.0.0)
 _data: 01/02/2024_
 
