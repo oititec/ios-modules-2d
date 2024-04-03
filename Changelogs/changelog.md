@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.1.1](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.1)
+_data: 03/04/2024_
+
+- **Melhorias**
+    - Atualização da versão mínima de suporte para **iOS 12.0**.
+
 ## [versão 2.1.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.0)
 _data: 12/03/2024_
 

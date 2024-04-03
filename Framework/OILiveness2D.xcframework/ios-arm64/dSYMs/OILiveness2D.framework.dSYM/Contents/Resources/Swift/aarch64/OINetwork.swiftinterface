@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
-// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OINetwork
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OINetwork
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CommonCrypto
 import Foundation
@@ -35,45 +35,33 @@ public struct FCCaptchaModel {
   public var fcvarUrlbase: Swift.String?
   public init(appkey: Swift.String? = nil, chkey: Swift.String? = nil, images: Swift.String? = nil, fcvarUrlbase: Swift.String? = nil)
 }
-public typealias FCManagerChallengeResultCallback = (_ value: OINetwork.FCResultModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManagerValidResultCallback = (_ value: OINetwork.FCValidCaptchaModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManagerPrivateKeyResultCallback = (_ value: OINetwork.FCPrivateKeyModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManagerSessionResultCallback = (_ value: OINetwork.FCSessionModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManagerSuccessCallback = (_ success: Swift.Bool, _ error: Swift.Error?, _ httpCode: Swift.Int?) -> Swift.Void
-public typealias FCManagerInitializerResultCallback = (_ value: OINetwork.FCInitializationModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManagerSession3DResultCallback = (_ value: OINetwork.FCSession3DModel?, _ error: Swift.Error?) -> Swift.Void
-public typealias FCManager3DLivenessResultCallback = (_ value: OINetwork.Liveness3DSuccess?, _ error: Swift.Error?) -> Swift.Void
+public typealias FCManagerChallengeResultCallback = (_ value: OINetwork.FCResultModel?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
+public typealias FCManagerValidResultCallback = (_ value: OINetwork.FCValidCaptchaModel?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
+public typealias FCManagerSuccessCallback = (_ success: Swift.Bool, _ errorDetail: OINetwork.ErrorDetail?, _ httpCode: Swift.Int?) -> Swift.Void
+public typealias FCManagerInitializerResultCallback = (_ value: OINetwork.FCInitializationModel?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
+public typealias FCManagerSession3DResultCallback = (_ value: OINetwork.FCSession3DModel?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
+public typealias FCManager3DLivenessResultCallback = (_ value: OINetwork.Liveness3DSuccess?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
+public typealias FCManagerPayloadCallback = (_ value: Swift.String?, _ errorDetail: OINetwork.ErrorDetail?) -> Swift.Void
 public typealias FCManagerResultCallback = (_ value: Swift.String?, _ error: Swift.Error?) -> Swift.Void
 public typealias FCManagerAppKeyCallback = (_ appKey: Swift.String?) -> Swift.Void
-public typealias FCManagerPayloadCallback = (_ value: Swift.String?, _ error: Swift.Error?) -> Swift.Void
 public protocol FCManagerProtocol {
   func verifyCertifaceOnline(consumerKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   func verifyAppKey(consumerKey: Swift.String, appKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
-  func createPrivateKey(consumerKey: Swift.String, model: OINetwork.FCUserModel, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerPrivateKeyResultCallback)
-  func createSession(consumerKey: Swift.String, model: OINetwork.FCUserModel, token: OINetwork.FCPrivateKeyModel, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSessionResultCallback)
-  func fetchAllCaptchaCallenge(consumerKey: Swift.String, model: OINetwork.FCBaseModel, appkey: Swift.String, completion: @escaping (OINetwork.FCResultModel?, Swift.Error?) -> Swift.Void)
+  func fetchAllCaptchaCallenge(consumerKey: Swift.String, model: OINetwork.FCBaseModel, appkey: Swift.String, completion: @escaping OINetwork.FCManagerChallengeResultCallback)
   func validateCaptchaChallenge(consumerKey: Swift.String, model: OINetwork.FCCaptchaModel, completion: @escaping OINetwork.FCManagerValidResultCallback)
   func sendDocument(consumerKey: Swift.String, images: [Swift.String], appKey: Swift.String, baseUrl: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   func sendDocument(consumerKey: Swift.String, images: [Swift.String], ticket: Swift.String, appKey: Swift.String, baseUrl: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   func initializeSDKLiveness(consumerKey: Swift.String, appKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerInitializerResultCallback)
   func create3DSession(consumerKey: Swift.String, appKey: Swift.String, userAgent: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSession3DResultCallback)
   func verifyLiveness3D(consumerKey: Swift.String, userAgent: Swift.String, appkey: Swift.String, faceScan: Swift.String, image auditTrailImage: Swift.String, lowQualityImage lowQualityAuditTrailImage: Swift.String, sessionId: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManager3DLivenessResultCallback)
-  func postSDKStatus(of payload: OINetwork.Payloadable, with baseUrl: Swift.String, consumerKey: Swift.String)
-  func postPayload(_ payload: OINetwork.Payloadable, endpoint: Swift.String, baseUrl: Swift.String, consumerKey: Swift.String, completion: @escaping OINetwork.FCManagerPayloadCallback)
+  func postSDKStatus(of payload: Foundation.Data, with baseUrl: Swift.String, consumerKey: Swift.String)
+  func postPayload(_ payload: Foundation.Data, endpoint: Swift.String, baseUrl: Swift.String, consumerKey: Swift.String, completion: @escaping OINetwork.FCManagerPayloadCallback)
   func deviceIntelligenceToken(consumerKey: Swift.String, from baseUrl: Swift.String, withAppKey appKey: Swift.String, ticket: Swift.String?, journeyProtocol: Swift.Int?, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
   func deviceIntelligenceEventData(consumerKey: Swift.String, from baseUrl: Swift.String, withToken deviceToken: Swift.String, save eventsData: Foundation.Data, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
   func deviceIntelligenceClose(consumerKey: Swift.String, from baseUrl: Swift.String, withToken deviceToken: Swift.String, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
   func credential(consumerKey: Swift.String, user: Swift.String, passcode: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
   func generateAppkey(consumerKey: Swift.String, user: Swift.String, token: Swift.String, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerResultCallback)
   func generateAppkey(consumerKey: Swift.String, user userProvided: Swift.String?, passcode passcodeProvided: Swift.String?, cpf: Swift.String, name: Swift.String, birthdate: Swift.String, completion: @escaping OINetwork.FCManagerAppKeyCallback)
-}
-public protocol Payloadable {
-  var appKey: Swift.String { get }
-  func createPayload() -> OINetwork.Payload
-}
-public struct Payload {
-  public init(appKey: Swift.String, fields: [Swift.String : Any?])
-  public func toJsonObject() -> [Swift.String : Any]
 }
 public struct FCValidCaptchaModel {
   public var valid: Swift.Bool?
@@ -88,17 +76,15 @@ public struct FCValidCaptchaModel {
 extension OINetwork.FCManager : OINetwork.FCManagerProtocol {
   public func verifyCertifaceOnline(consumerKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   public func verifyAppKey(consumerKey: Swift.String, appKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
-  public func createPrivateKey(consumerKey: Swift.String, model: OINetwork.FCUserModel, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerPrivateKeyResultCallback)
-  public func createSession(consumerKey: Swift.String, model: OINetwork.FCUserModel, token: OINetwork.FCPrivateKeyModel, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSessionResultCallback)
-  public func fetchAllCaptchaCallenge(consumerKey: Swift.String, model: OINetwork.FCBaseModel, appkey: Swift.String, completion: @escaping (OINetwork.FCResultModel?, Swift.Error?) -> Swift.Void)
+  public func fetchAllCaptchaCallenge(consumerKey: Swift.String, model: OINetwork.FCBaseModel, appkey: Swift.String, completion: @escaping OINetwork.FCManagerChallengeResultCallback)
   public func validateCaptchaChallenge(consumerKey: Swift.String, model: OINetwork.FCCaptchaModel, completion: @escaping OINetwork.FCManagerValidResultCallback)
   public func sendDocument(consumerKey: Swift.String, images: [Swift.String], appKey: Swift.String, baseUrl: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   public func sendDocument(consumerKey: Swift.String, images: [Swift.String], ticket: Swift.String, appKey: Swift.String, baseUrl: Swift.String, completion: @escaping OINetwork.FCManagerSuccessCallback)
   public func initializeSDKLiveness(consumerKey: Swift.String, appKey: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerInitializerResultCallback)
   public func create3DSession(consumerKey: Swift.String, appKey: Swift.String, userAgent: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManagerSession3DResultCallback)
   public func verifyLiveness3D(consumerKey: Swift.String, userAgent: Swift.String, appkey: Swift.String, faceScan: Swift.String, image auditTrailImage: Swift.String, lowQualityImage lowQualityAuditTrailImage: Swift.String, sessionId: Swift.String, baseUrl fcvarUrlbase: Swift.String, completion: @escaping OINetwork.FCManager3DLivenessResultCallback)
-  public func postSDKStatus(of payload: OINetwork.Payloadable, with baseUrl: Swift.String, consumerKey: Swift.String)
-  public func postPayload(_ payload: OINetwork.Payloadable, endpoint: Swift.String, baseUrl: Swift.String, consumerKey: Swift.String, completion: @escaping OINetwork.FCManagerPayloadCallback)
+  public func postSDKStatus(of payload: Foundation.Data, with baseUrl: Swift.String, consumerKey: Swift.String)
+  public func postPayload(_ payload: Foundation.Data, endpoint: Swift.String, baseUrl: Swift.String, consumerKey: Swift.String, completion: @escaping OINetwork.FCManagerPayloadCallback)
   public func deviceIntelligenceToken(consumerKey: Swift.String, from baseUrl: Swift.String, withAppKey appKey: Swift.String, ticket: Swift.String?, journeyProtocol: Swift.Int?, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
   public func deviceIntelligenceEventData(consumerKey: Swift.String, from baseUrl: Swift.String, withToken deviceToken: Swift.String, save eventsData: Foundation.Data, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
   public func deviceIntelligenceClose(consumerKey: Swift.String, from baseUrl: Swift.String, withToken deviceToken: Swift.String, completion: @escaping (Swift.Result<Swift.String, Swift.Error>, Swift.Int) -> Swift.Void)
@@ -140,6 +126,13 @@ public func fatalError(_ message: @autoclosure () -> Swift.String = "", file: Sw
 public struct FatalErrorUtil {
   public static func replaceFatalError(closure: @escaping (Swift.String, Swift.StaticString, Swift.UInt) -> Swift.Void)
   public static func restoreFatalError()
+}
+public struct ErrorDetail {
+  public let error: Swift.Error
+  public let fileName: Swift.String
+  public let line: Swift.String
+  public let stackTrace: Swift.String
+  public init(error: Swift.Error, fileName: Swift.String, line: Swift.Int, stackTrace: [Swift.String])
 }
 public struct FCResultModel {
   public var chkey: Swift.String?
