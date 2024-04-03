@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
-// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OISecurity
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OISecurity
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CommonCrypto
 import CoreLocation
@@ -38,11 +38,11 @@ public enum PersistenceOption : Swift.String {
 }
 @_hasMissingDesignatedInitializers final public class SecurityManager {
   @objc deinit
-  public static func session(for sessionIdentifier: Swift.String) -> OISecurity.SecurityManager?
+  public static func session(for sessionIdentifier: Swift.String, baseUrl: Swift.String) -> OISecurity.SecurityManager?
   final public func requestLocation()
   final public func trackEvent(_ event: OISecurity.EventType)
-  final public func uploadDeviceInfoAndLocation(appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
-  final public func uploadData(with appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
+  final public func uploadDeviceInfoAndLocation(appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, provider: Swift.String, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
+  final public func uploadData(with appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, provider: Swift.String, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
 }
 extension OISecurity.SecurityManager : Swift.Hashable {
   public static func == (lhs: OISecurity.SecurityManager, rhs: OISecurity.SecurityManager) -> Swift.Bool
@@ -50,6 +50,14 @@ extension OISecurity.SecurityManager : Swift.Hashable {
   final public var hashValue: Swift.Int {
     get
   }
+}
+public protocol DebugLoggerProtocol {
+  func logDebugData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail)
+}
+@_hasMissingDesignatedInitializers final public class DebugLogger : OISecurity.DebugLoggerProtocol {
+  convenience public init(appKey: Swift.String, provider: Swift.String, baseUrl: Swift.String)
+  final public func logDebugData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail)
+  @objc deinit
 }
 public enum EventType : Swift.String, Swift.CaseIterable {
   case STATE_L3_hybridLoadingView
