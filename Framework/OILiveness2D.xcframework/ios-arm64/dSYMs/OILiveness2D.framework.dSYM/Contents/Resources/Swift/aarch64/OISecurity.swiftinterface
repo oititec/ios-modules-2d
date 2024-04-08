@@ -90,8 +90,7 @@ public enum EventType : Swift.String, Swift.CaseIterable {
   case STATE_DC_hybridLoadingView
   case STATE_DC_instructionView
   case ACTION_DC_instructionBackBtn
-  case ACTION_DC_instructionCNHOption
-  case ACTION_DC_instructionRGOption
+  case ACTION_DC_instructionContinueBtn
   case STATE_DC_captureView
   case STATE_DC_takePictureFrontDoc
   case ACTION_DC_takePictureFrontDocBtn
