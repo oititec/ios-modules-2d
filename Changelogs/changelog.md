@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.1.2](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.2)
+_data: 29/04/2024_
+
+- **Melhorias**
+    - Remoção do **CallKit** Framework.
+
 ## [versão 2.1.1](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.1)
 _data: 03/04/2024_
 
