@@ -3,20 +3,14 @@
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OICommons
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import AVFoundation
-import CallKit
 import CoreGraphics
-import CoreTelephony
 import CoreText
 import Darwin
 import Foundation
 @_exported import OICommons
 import Swift
 import SystemConfiguration
-import UIKit.UIControl
-import UIKit.UIDevice
-import UIKit.UIImagePickerController
 import UIKit
-import UIKit.UIViewController
 import _Concurrency
 import _StringProcessing
 extension Swift.UInt32 {
@@ -77,12 +71,6 @@ extension Swift.Collection where Self.Element == Swift.UInt8, Self.Index == Swif
 internal func strideCount(from: Swift.Int, to: Swift.Int, by: Swift.Int) -> Swift.Int
 @_hasMissingDesignatedInitializers public class FontUtil {
   public static func registerFonts()
-  @objc deinit
-}
-@objc @_Concurrency.MainActor(unsafe) open class ViewControllerInViewCode : UIKit.UIViewController {
-  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
-  @available(*, unavailable)
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 final public class AES {
@@ -544,12 +532,6 @@ extension Swift.UInt8 : OICommons._UInt8Type {
 extension Swift.UInt8 {
   public func bits() -> [OICommons.Bit]
   public func bits() -> Swift.String
-}
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class FCBaseView : UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
-  @_Concurrency.MainActor(unsafe) open func setupView()
-  @objc deinit
 }
 final public class SHA1 {
   @usableFromInline
@@ -1144,7 +1126,6 @@ extension Swift.String {
 public enum HardwareStatusManager {
   public static func checkCameraPermission(completion: @escaping (_ granted: Swift.Bool) -> Swift.Void)
   public static func isConnectedToNetwork() -> Swift.Bool
-  public static func isOnPhoneCall() -> Swift.Bool
 }
 final public class Blowfish {
   public enum Error : Swift.Error {
@@ -1174,22 +1155,8 @@ extension Swift.Array where Element == Swift.UInt8 {
 extension OICommons.Blowfish {
   convenience public init(key: Swift.String, iv: Swift.String, padding: OICommons.Padding = .pkcs7) throws
 }
-extension UIKit.UIDevice {
-  @_Concurrency.MainActor(unsafe) public static func vibrate()
-}
 extension UIKit.UIImage {
   public static func fromGif(resourceName: Swift.String, bundle externalBundle: Foundation.Bundle? = nil, durationPerFrame duration: CoreFoundation.CGFloat) -> UIKit.UIImage?
-}
-public class ClosureSleeve {
-  public init(attachTo: Swift.AnyObject, closure: @escaping () -> Swift.Void)
-  @objc public func invoke()
-  @objc deinit
-}
-extension UIKit.UIControl {
-  @_Concurrency.MainActor(unsafe) public func addAction(for controlEvents: UIKit.UIControl.Event = .primaryActionTriggered, action: @escaping () -> Swift.Void)
-}
-extension UIKit.UIViewController {
-  @_Concurrency.MainActor(unsafe) public func showAlert(title: Swift.String?, message: Swift.String)
 }
 public struct Constants {
   public static var FaceCaptchaImageHeight: Swift.Int
@@ -1313,11 +1280,6 @@ public class CMAC : OICommons.Authenticator {
   public func authenticate(_ bytes: Swift.Array<Swift.UInt8>, cipher: OICommons.Cipher) throws -> Swift.Array<Swift.UInt8>
   @objc deinit
 }
-@_hasMissingDesignatedInitializers public class Logger {
-  public static let isLogEnabled: Swift.Bool
-  public static func log(_ items: Any...)
-  @objc deinit
-}
 extension UIKit.UIImage {
   public func resizeImage(targetSize: CoreFoundation.CGSize) -> UIKit.UIImage?
   public func toBase64(withSizeInMb expectedSizeInMb: Swift.Float) -> Swift.String?
@@ -1367,11 +1329,6 @@ public protocol Cipher : AnyObject {
 extension OICommons.Cipher {
   public func encrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
   public func decrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
-}
-extension Swift.Optional where Wrapped == Swift.String {
-  public var orEmpty: Swift.String {
-    get
-  }
 }
 extension Foundation.Data {
   public func checksum() -> Swift.UInt16
@@ -1585,10 +1542,12 @@ final internal class StreamDecryptor : OICommons.Cryptor, OICommons.Updatable {
   @objc @usableFromInline
   deinit
 }
-@objc @_Concurrency.MainActor(unsafe) public class CustomShape : OICommons.ViewInViewCode {
+@objc @_Concurrency.MainActor(unsafe) public class CustomShape : UIKit.UIView {
   public typealias ShapeBuilder = (_ shape: UIKit.UIView, _ rect: CoreFoundation.CGRect) -> Swift.Void
   @_Concurrency.MainActor(unsafe) public var path: UIKit.UIBezierPath?
   @_Concurrency.MainActor(unsafe) public init(shapeBuilder: @escaping OICommons.CustomShape.ShapeBuilder)
+  @available(*, unavailable)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func draw(_ rect: CoreFoundation.CGRect)
   @objc deinit
 }
@@ -1659,13 +1618,6 @@ public protocol BlockMode {
   var options: OICommons.BlockModeOption { get }
   @inlinable func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
   var customBlockSize: Swift.Int? { get }
-}
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class ViewInViewCode : UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
-  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
-  @available(*, unavailable)
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
 }
 public class BlockDecryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
