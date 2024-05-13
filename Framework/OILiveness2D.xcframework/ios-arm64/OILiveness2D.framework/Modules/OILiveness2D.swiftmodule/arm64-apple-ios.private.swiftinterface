@@ -1,9 +1,10 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OILiveness2D
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import AVFoundation
 import CoreGraphics
+import DeveloperToolsSupport
 import Foundation
 import OICommons
 import OIComponents
@@ -11,6 +12,7 @@ import OIComponents
 import OINetwork
 import OISecurity
 import Swift
+import SwiftUI
 import UIKit.UIBezierPath
 import UIKit.UIButton
 import UIKit.UIImage
@@ -19,6 +21,7 @@ import UIKit.UIView
 import UIKit.UIViewController
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setLoadingBackgroundColor(_ color: UIKit.UIColor) -> Self
@@ -71,7 +74,7 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
   final public func setResultTryAgainButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentscopyViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor(unsafe) convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil, customInstructionView: OILiveness2D.DocumentscopyCustomInstructionView? = nil, customView: OILiveness2D.DocumentscopyCustomView? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: OILiveness2D.DocumentscopyCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil, customInstructionView: (any OILiveness2D.DocumentscopyCustomInstructionView)? = nil, customView: (any OILiveness2D.DocumentscopyCustomView)? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: (any OILiveness2D.DocumentscopyCustomResultView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
   @objc deinit
 }
@@ -88,7 +91,7 @@ extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPer
 public struct DocumentscopyCustomizationTheme {
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class FaceCaptchaViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.FaceCaptchaDelegate, customInstructionsView: OILiveness2D.FaceCaptchaCustomIntructionsView? = nil, customLivenessView: OILiveness2D.FaceCaptchaCustomView? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: OILiveness2D.FaceCaptchaCustomResultView? = nil, customCameraPermissionView: OILiveness2D.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, customInstructionsView: (any OILiveness2D.FaceCaptchaCustomIntructionsView)? = nil, customLivenessView: (any OILiveness2D.FaceCaptchaCustomView)? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: (any OILiveness2D.FaceCaptchaCustomResultView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc deinit
 }
@@ -239,7 +242,7 @@ public enum DocumentscopyResultType {
   case error(OILiveness2D.DocumentscopyError)
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
-  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.DocumentscopyDelegate, customizationTheme hybridCustomizationTheme: OILiveness2D.HybridDocumentscopyCustomizationTheme? = nil)
+  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, customizationTheme hybridCustomizationTheme: OILiveness2D.HybridDocumentscopyCustomizationTheme? = nil)
   @objc deinit
 }
 public enum FaceCaptchaResultType {
@@ -392,7 +395,7 @@ public protocol FaceCaptchaDelegate : AnyObject {
   func handleCanceled()
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridFaceCaptchaViewController : OILiveness2D.FaceCaptchaViewController {
-  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: OILiveness2D.FaceCaptchaDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
+  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, customAppearance: OIComponents.HybridViewAppearance? = nil)
   @objc deinit
 }
 extension OILiveness2D.DocumentscopyError : Swift.Equatable {}

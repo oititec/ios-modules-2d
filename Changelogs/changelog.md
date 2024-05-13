@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.1.3](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.3)
+_data: 13/05/2024_
+
+- **Melhorias**
+    - Conformidade com as novas diretrizes da App Store.
+
 ## [versão 2.1.2](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.2)
 _data: 29/04/2024_
 

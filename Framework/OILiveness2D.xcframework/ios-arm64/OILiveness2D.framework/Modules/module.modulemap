@@ -1,7 +1,7 @@
 framework module OILiveness2D {
   umbrella header "OILiveness2D.h"
-
   export *
+
   module * { export * }
 }
 

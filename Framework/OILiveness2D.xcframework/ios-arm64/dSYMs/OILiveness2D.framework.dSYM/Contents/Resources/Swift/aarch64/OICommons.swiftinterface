@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OICommons
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import AVFoundation
@@ -13,6 +13,7 @@ import SystemConfiguration
 import UIKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 extension Swift.UInt32 {
   @_specialize(exported: false, kind: full, where T == Swift.ArraySlice<Swift.UInt8>)
   @inlinable internal init<T>(bytes: T, fromIndex index: T.Index) where T : Swift.Collection, T.Element == Swift.UInt8, T.Index == Swift.Int {
@@ -102,7 +103,7 @@ final public class AES {
   final public let keySize: Swift.Int
   final public let variant: OICommons.AES.Variant
   @usableFromInline
-  final internal let blockMode: OICommons.BlockMode
+  final internal let blockMode: any OICommons.BlockMode
   @usableFromInline
   final internal let padding: OICommons.Padding
   @usableFromInline
@@ -139,7 +140,7 @@ final public class AES {
   internal static let U3: [Swift.UInt32]
   @usableFromInline
   internal static let U4: [Swift.UInt32]
-  public init(key: Swift.Array<Swift.UInt8>, blockMode: OICommons.BlockMode, padding: OICommons.Padding = .pkcs7) throws
+  public init(key: Swift.Array<Swift.UInt8>, blockMode: any OICommons.BlockMode, padding: OICommons.Padding = .pkcs7) throws
   @inlinable final internal func encrypt(block: Swift.ArraySlice<Swift.UInt8>) -> Swift.Array<Swift.UInt8>? {
     if self.blockMode.options.contains(.paddingRequired) && block.count != AES.blockSize {
       return Array(block)
@@ -338,13 +339,13 @@ final public class OCB : OICommons.BlockMode {
     self.init(nonce: N, additionalAuthenticatedData: additionalAuthenticatedData, tagLength: authenticationTag.count, mode: mode)
     self.authenticationTag = authenticationTag
   }
-  final public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  final public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
   @objc deinit
 }
 @usableFromInline
 final internal class BlockEncryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
-  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: OICommons.CipherModeWorker) throws
+  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: any OICommons.CipherModeWorker) throws
   final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool) throws -> Swift.Array<Swift.UInt8>
   @usableFromInline
   final internal func seek(to: Swift.Int) throws
@@ -444,7 +445,7 @@ public struct ECB : OICommons.BlockMode {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init()
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 public struct CTR {
   public enum Error : Swift.Error {
@@ -458,20 +459,20 @@ public struct CTR {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init(iv: Swift.Array<Swift.UInt8>, counter: Swift.Int = 0)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 @usableFromInline
 final internal class StreamEncryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
   final internal let blockSize: Swift.Int
   @usableFromInline
-  final internal var worker: OICommons.CipherModeWorker
+  final internal var worker: any OICommons.CipherModeWorker
   @usableFromInline
   final internal let padding: OICommons.Padding
   @usableFromInline
   final internal var lastBlockRemainder: Swift.Int
   @usableFromInline
-  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: OICommons.CipherModeWorker) throws
+  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: any OICommons.CipherModeWorker) throws
   @inlinable final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool) throws -> Swift.Array<Swift.UInt8> {
     var accumulated = Array(bytes)
     if isLast {
@@ -774,8 +775,8 @@ extension Swift.Array where Element == Swift.UInt8 {
   public func crc32(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Swift.UInt32
   public func crc32c(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Swift.UInt32
   public func crc16(seed: Swift.UInt16? = nil) -> Swift.UInt16
-  public func encrypt(cipher: OICommons.Cipher) throws -> [Element]
-  public func decrypt(cipher: OICommons.Cipher) throws -> [Element]
+  public func encrypt(cipher: any OICommons.Cipher) throws -> [Element]
+  public func decrypt(cipher: any OICommons.Cipher) throws -> [Element]
   public func authenticate<A>(with authenticator: A) throws -> [Element] where A : OICommons.Authenticator
 }
 extension UIKit.UIView {
@@ -1024,7 +1025,7 @@ public struct CFB : OICommons.BlockMode {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init(iv: Swift.Array<Swift.UInt8>, segmentSize: OICommons.CFB.SegmentSize = .cfb128)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 @_hasMissingDesignatedInitializers public class FCCipher {
   public static let key: [Swift.UInt8]
@@ -1113,10 +1114,10 @@ extension Swift.String {
   @inlinable public func crc16(seed: Swift.UInt16? = nil) -> Swift.String {
     self.bytes.crc16(seed: seed).bytes().toHexString()
   }
-  @inlinable public func encrypt(cipher: OICommons.Cipher) throws -> Swift.String {
+  @inlinable public func encrypt(cipher: any OICommons.Cipher) throws -> Swift.String {
     try self.bytes.encrypt(cipher: cipher).toHexString()
   }
-  @inlinable public func encryptToBase64(cipher: OICommons.Cipher) throws -> Swift.String? {
+  @inlinable public func encryptToBase64(cipher: any OICommons.Cipher) throws -> Swift.String? {
     try self.bytes.encrypt(cipher: cipher).toBase64()
   }
   @inlinable public func authenticate<A>(with authenticator: A) throws -> Swift.String where A : OICommons.Authenticator {
@@ -1141,7 +1142,7 @@ final public class Blowfish {
   }
   public static let blockSize: Swift.Int
   final public let keySize: Swift.Int
-  public init(key: Swift.Array<Swift.UInt8>, blockMode: OICommons.BlockMode = CBC(iv: Array<UInt8>(repeating: 0, count: Blowfish.blockSize)), padding: OICommons.Padding) throws
+  public init(key: Swift.Array<Swift.UInt8>, blockMode: any OICommons.BlockMode = CBC(iv: Array<UInt8>(repeating: 0, count: Blowfish.blockSize)), padding: OICommons.Padding) throws
   @objc deinit
 }
 extension OICommons.Blowfish : OICommons.Cipher {
@@ -1229,7 +1230,7 @@ public struct OFB : OICommons.BlockMode {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init(iv: Swift.Array<Swift.UInt8>)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 final public class ChaCha20 {
   public enum Error : Swift.Error {
@@ -1263,8 +1264,8 @@ extension OICommons.ChaCha20 {
   }
 }
 extension OICommons.ChaCha20 : OICommons.Cryptors {
-  final public func makeEncryptor() -> OICommons.Cryptor & OICommons.Updatable
-  final public func makeDecryptor() -> OICommons.Cryptor & OICommons.Updatable
+  final public func makeEncryptor() -> any OICommons.Cryptor & OICommons.Updatable
+  final public func makeDecryptor() -> any OICommons.Cryptor & OICommons.Updatable
 }
 public class CMAC : OICommons.Authenticator {
   public enum Error : Swift.Error {
@@ -1277,7 +1278,7 @@ public class CMAC : OICommons.Authenticator {
   }
   public init(key: Swift.Array<Swift.UInt8>) throws
   public func authenticate(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
-  public func authenticate(_ bytes: Swift.Array<Swift.UInt8>, cipher: OICommons.Cipher) throws -> Swift.Array<Swift.UInt8>
+  public func authenticate(_ bytes: Swift.Array<Swift.UInt8>, cipher: any OICommons.Cipher) throws -> Swift.Array<Swift.UInt8>
   @objc deinit
 }
 extension UIKit.UIImage {
@@ -1285,8 +1286,8 @@ extension UIKit.UIImage {
   public func toBase64(withSizeInMb expectedSizeInMb: Swift.Float) -> Swift.String?
 }
 extension Swift.String {
-  public func decryptBase64ToString(cipher: OICommons.Cipher) throws -> Swift.String
-  public func decryptBase64(cipher: OICommons.Cipher) throws -> Swift.Array<Swift.UInt8>
+  public func decryptBase64ToString(cipher: any OICommons.Cipher) throws -> Swift.String
+  public func decryptBase64(cipher: any OICommons.Cipher) throws -> Swift.Array<Swift.UInt8>
 }
 final public class HMAC : OICommons.Authenticator {
   public enum Error : Swift.Error {
@@ -1342,9 +1343,9 @@ extension Foundation.Data {
   public func crc32(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Foundation.Data
   public func crc32c(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Foundation.Data
   public func crc16(seed: Swift.UInt16? = nil) -> Foundation.Data
-  public func encrypt(cipher: OICommons.Cipher) throws -> Foundation.Data
-  public func decrypt(cipher: OICommons.Cipher) throws -> Foundation.Data
-  public func authenticate(with authenticator: OICommons.Authenticator) throws -> Foundation.Data
+  public func encrypt(cipher: any OICommons.Cipher) throws -> Foundation.Data
+  public func decrypt(cipher: any OICommons.Cipher) throws -> Foundation.Data
+  public func authenticate(with authenticator: any OICommons.Authenticator) throws -> Foundation.Data
 }
 extension Foundation.Data {
   public init(hex: Swift.String)
@@ -1483,7 +1484,7 @@ final internal class StreamDecryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
   final internal let blockSize: Swift.Int
   @usableFromInline
-  final internal var worker: OICommons.CipherModeWorker
+  final internal var worker: any OICommons.CipherModeWorker
   @usableFromInline
   final internal let padding: OICommons.Padding
   @usableFromInline
@@ -1491,7 +1492,7 @@ final internal class StreamDecryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
   final internal var lastBlockRemainder: Swift.Int
   @usableFromInline
-  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: OICommons.CipherModeWorker) throws
+  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: any OICommons.CipherModeWorker) throws
   @inlinable final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool) throws -> Swift.Array<Swift.UInt8> {
     self.accumulated += bytes
 
@@ -1563,11 +1564,11 @@ public struct CBC : OICommons.BlockMode {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init(iv: Swift.Array<Swift.UInt8>)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 public protocol Cryptors : AnyObject {
-  func makeEncryptor() throws -> OICommons.Cryptor & OICommons.Updatable
-  func makeDecryptor() throws -> OICommons.Cryptor & OICommons.Updatable
+  func makeEncryptor() throws -> any OICommons.Cryptor & OICommons.Updatable
+  func makeDecryptor() throws -> any OICommons.Cryptor & OICommons.Updatable
   static func randomIV(_ blockSize: Swift.Int) -> Swift.Array<Swift.UInt8>
 }
 extension OICommons.Cryptors {
@@ -1577,7 +1578,7 @@ public protocol Authenticator {
   func authenticate(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
 }
 extension OICommons.AES : OICommons.Cryptors {
-  @inlinable final public func makeEncryptor() throws -> OICommons.Cryptor & OICommons.Updatable {
+  @inlinable final public func makeEncryptor() throws -> any OICommons.Cryptor & OICommons.Updatable {
     let blockSize = blockMode.customBlockSize ?? AES.blockSize
     let worker = try blockMode.worker(blockSize: blockSize, cipherOperation: encrypt, encryptionOperation: encrypt)
     if worker is StreamModeWorker {
@@ -1585,7 +1586,7 @@ extension OICommons.AES : OICommons.Cryptors {
     }
     return try BlockEncryptor(blockSize: blockSize, padding: padding, worker)
   }
-  @inlinable final public func makeDecryptor() throws -> OICommons.Cryptor & OICommons.Updatable {
+  @inlinable final public func makeDecryptor() throws -> any OICommons.Cryptor & OICommons.Updatable {
     let blockSize = blockMode.customBlockSize ?? AES.blockSize
     let cipherOperation: CipherOperationOnBlock = blockMode.options.contains(.useEncryptToDecrypt) == true ? encrypt : decrypt
     let worker = try blockMode.worker(blockSize: blockSize, cipherOperation: cipherOperation, encryptionOperation: encrypt)
@@ -1611,12 +1612,12 @@ public struct CCM {
   public var authenticationTag: Swift.Array<Swift.UInt8>?
   public init(iv: Swift.Array<Swift.UInt8>, tagLength: Swift.Int, messageLength: Swift.Int, additionalAuthenticatedData: Swift.Array<Swift.UInt8>? = nil)
   public init(iv: Swift.Array<Swift.UInt8>, tagLength: Swift.Int, messageLength: Swift.Int, authenticationTag: Swift.Array<Swift.UInt8>, additionalAuthenticatedData: Swift.Array<Swift.UInt8>? = nil)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 public typealias CipherOperationOnBlock = (_ block: Swift.ArraySlice<Swift.UInt8>) -> Swift.Array<Swift.UInt8>?
 public protocol BlockMode {
   var options: OICommons.BlockModeOption { get }
-  @inlinable func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  @inlinable func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
   var customBlockSize: Swift.Int? { get }
 }
 public class BlockDecryptor : OICommons.Cryptor, OICommons.Updatable {
@@ -1625,11 +1626,11 @@ public class BlockDecryptor : OICommons.Cryptor, OICommons.Updatable {
   @usableFromInline
   final internal let padding: OICommons.Padding
   @usableFromInline
-  internal var worker: OICommons.CipherModeWorker
+  internal var worker: any OICommons.CipherModeWorker
   @usableFromInline
   internal var accumulated: [Swift.UInt8]
   @usableFromInline
-  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: OICommons.CipherModeWorker) throws
+  internal init(blockSize: Swift.Int, padding: OICommons.Padding, _ worker: any OICommons.CipherModeWorker) throws
   @inlinable public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8> {
     self.accumulated += bytes
 
@@ -1710,7 +1711,7 @@ final public class GCM : OICommons.BlockMode {
   final public var authenticationTag: Swift.Array<Swift.UInt8>?
   public init(iv: Swift.Array<Swift.UInt8>, additionalAuthenticatedData: Swift.Array<Swift.UInt8>? = nil, tagLength: Swift.Int = 16, mode: OICommons.GCM.Mode = .detached)
   convenience public init(iv: Swift.Array<Swift.UInt8>, authenticationTag: Swift.Array<Swift.UInt8>, additionalAuthenticatedData: Swift.Array<Swift.UInt8>? = nil, mode: OICommons.GCM.Mode = .detached)
-  final public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  final public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
   @objc deinit
 }
 extension OICommons.ChaCha20 {
@@ -1728,7 +1729,7 @@ public struct PCBC : OICommons.BlockMode {
   public let options: OICommons.BlockModeOption
   public let customBlockSize: Swift.Int?
   public init(iv: Swift.Array<Swift.UInt8>)
-  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> OICommons.CipherModeWorker
+  public func worker(blockSize: Swift.Int, cipherOperation: @escaping OICommons.CipherOperationOnBlock, encryptionOperation: @escaping OICommons.CipherOperationOnBlock) throws -> any OICommons.CipherModeWorker
 }
 public enum PKCS5 {
 }

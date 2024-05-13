@@ -1,12 +1,14 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OIComponents
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import AVFoundation
 import CoreGraphics
+import DeveloperToolsSupport
 import Foundation
 @_exported import OIComponents
 import Swift
+import SwiftUI
 import UIKit.UIButton
 import UIKit.UIColor
 import UIKit.UIImage
@@ -15,6 +17,7 @@ import UIKit.UIView
 import UIKit.UIViewController
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 public struct LinkComponentModel {
   public init(text: Swift.String, icon: OIComponents.ComponentIcon, size: OIComponents.ComponentSize, normalStyle: OIComponents.LinkComponentStyles, highlightedStyle: OIComponents.LinkComponentStyles)
 }
@@ -402,7 +405,7 @@ extension OIComponents.DesignTokens {
   @objc deinit
 }
 public struct HybridViewAppearance {
-  public init(configuration: OIComponents.LoadingViewConfigurationProtocol)
+  public init(configuration: any OIComponents.LoadingViewConfigurationProtocol)
 }
 public struct BaseFieldModel {
   public var label: Swift.String
@@ -556,9 +559,9 @@ public enum ButtonComponentStyles {
   }
 }
 @objc @_Concurrency.MainActor(unsafe) public class CheckCameraPermissionViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor(unsafe) weak public var delegate: OIComponents.CheckCameraPermissionDelegate?
-  @_Concurrency.MainActor(unsafe) weak public var trackerDelegate: OIComponents.CheckCameraPermissionTrackerDelegate?
-  @_Concurrency.MainActor(unsafe) public init(customizationProperties: OIComponents.CheckCameraPermissionViewProperties = .init(), customView: OIComponents.CustomCameraPermissionView? = nil)
+  @_Concurrency.MainActor(unsafe) weak public var delegate: (any OIComponents.CheckCameraPermissionDelegate)?
+  @_Concurrency.MainActor(unsafe) weak public var trackerDelegate: (any OIComponents.CheckCameraPermissionTrackerDelegate)?
+  @_Concurrency.MainActor(unsafe) public init(customizationProperties: OIComponents.CheckCameraPermissionViewProperties = .init(), customView: (any OIComponents.CustomCameraPermissionView)? = nil)
   @available(*, unavailable)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func loadView()
@@ -681,7 +684,7 @@ public protocol CheckCameraPermissionTrackerDelegate : AnyObject {
   func trackCloseAction()
 }
 @objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class SquareButtonComponent : OIComponents.ButtonComponent {
-  @_Concurrency.MainActor(unsafe) public func layoutForSuperview(_ superview: UIKit.UIView, with layoutContraintModel: OIComponents.ButtonLayoutContraintsModel)
+  @_Concurrency.MainActor(unsafe) public func layoutForSuperview(_ superview: UIKit.UIView, with layoutContraintModel: any OIComponents.ButtonLayoutContraintsModel)
   @_Concurrency.MainActor(unsafe) override public init(model: OIComponents.ButtonComponentModel, identifier: Swift.String? = nil)
   @objc deinit
 }
