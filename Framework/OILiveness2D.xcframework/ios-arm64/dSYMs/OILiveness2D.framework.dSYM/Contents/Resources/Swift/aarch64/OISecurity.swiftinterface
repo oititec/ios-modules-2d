@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OISecurity
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CommonCrypto
@@ -14,9 +14,16 @@ import UIKit.UIDevice
 import UIKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 @_hasMissingDesignatedInitializers public class DLCoordinate {
   final public let latitude: Swift.Double
   final public let longitude: Swift.Double
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class GlobalExceptionHandler {
+  public static var shared: ((Foundation.NSException) -> Swift.Void)?
+  public static var exceptionCallback: ((OISecurity.ExceptionPayload) -> Swift.Void)?
+  public static func start()
   @objc deinit
 }
 public struct SecurityPayload {
@@ -26,6 +33,8 @@ public struct SecurityEvent {
 public struct CryptoManager {
   public static func encrypt(_ value: Foundation.NSData, withKey secretKey: Swift.String) -> Swift.String?
   public static func decrypt(_ value: Swift.String, withKey secretKey: Swift.String) -> Foundation.Data?
+}
+public struct ExceptionPayload : Swift.Error {
 }
 public enum PersistenceOption : Swift.String {
   case index
