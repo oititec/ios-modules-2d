@@ -1,5 +1,12 @@
 # Changelog
 
+## [versão 2.2.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.2.0)
+_data: 25/06/2024_
+
+- **Melhorias**
+    - Ajustes no layout da `DocCore`.
+    - Correção de bugs.
+
 ## [versão 2.1.3](https://github.com/oititec/ios-modules-2d/releases/tag/2.1.3)
 _data: 13/05/2024_
 

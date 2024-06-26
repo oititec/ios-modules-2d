@@ -392,12 +392,16 @@ extension OIComponents.DesignTokens {
     @objc get
     @objc set
   }
+  @_Concurrency.MainActor(unsafe) public var textFieldValue: Swift.String {
+    get
+  }
   @_Concurrency.MainActor(unsafe) public init(model: OIComponents.TextFieldComponentModel, iconVisibilityOn: UIKit.UIImage?, iconVisibilityOff: UIKit.UIImage?)
   @_Concurrency.MainActor(unsafe) override public func disable()
   @_Concurrency.MainActor(unsafe) override public func enable()
   @_Concurrency.MainActor(unsafe) override public func canShowWarning() -> Swift.Bool
   @_Concurrency.MainActor(unsafe) public func onValueChange(handler: @escaping OIComponents.SecureTextFieldComponent.ValueChangeHandler)
   @_Concurrency.MainActor(unsafe) public func onLostFocus(handler: @escaping OIComponents.SecureTextFieldComponent.LostFocusHandler)
+  @_Concurrency.MainActor(unsafe) public func clear()
   @_Concurrency.MainActor(unsafe) @objc public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
@@ -670,6 +674,7 @@ extension OIComponents.DesignTokens {
   @_Concurrency.MainActor(unsafe) public func addObserveValueChangesAction(handler: @escaping OIComponents.TextFieldComponent.ObserveValueChangesHandler)
   @_Concurrency.MainActor(unsafe) public func addOnLostFocusAction(handler: @escaping OIComponents.TextFieldComponent.LostFocusHandler)
   @_Concurrency.MainActor(unsafe) public func setText(_ text: Swift.String)
+  @_Concurrency.MainActor(unsafe) public func clear()
   @_Concurrency.MainActor(unsafe) @objc public func textFieldShouldReturn(_ textField: UIKit.UITextField) -> Swift.Bool
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidBeginEditing(_ textField: UIKit.UITextField)
   @_Concurrency.MainActor(unsafe) @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
