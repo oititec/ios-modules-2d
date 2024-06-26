@@ -18,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		yIWTMMoHKZrHW5Zbq3jc7xBSzHE=
+		D8aj62HVb3qnHNBbWZt+OAJVwpE=
 		</data>
 		<key>Modules/OILiveness2D.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/OILiveness2D.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		qWL/Ytxj9iTj2FsBhD63gjzMeiU=
+		roHnF3U63tv6hxbgGdd17LdjxIA=
 		</data>
 		<key>Modules/OILiveness2D.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Modules/OILiveness2D.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		fJDr46kAQEMtoxKSOUipRpKai0Y=
+		J1pg1bwL9ozIE4KemV7Z7nRyP4k=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -124,7 +124,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tH7Gg3KfKFEY7rb5axJJWNyPDPPnmfy0+UvuGFAV4wA=
+			Z9+F61F3vdKIwJ/2RgDGEywfJbkvJYRO3JRxG8jKhwA=
 			</data>
 		</dict>
 		<key>Modules/OILiveness2D.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -159,7 +159,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Q3WIysej2cgWoDzX42hJAdb9mZUBlnbXfa0sJB1+6i8=
+			CpV+sKPNaAgJRBjCJObE1O+PeKCTrLXkaygmGMx+EQo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
