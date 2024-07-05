@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.3.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.3.0)
+_data: 05/07/2024_
+
+- **Melhorias**
+    - Adição da propriedade `showFeedback` no `FaceCaptcha` e `Documentscopy`.
+
 ## [versão 2.2.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.2.0)
 _data: 25/06/2024_
 

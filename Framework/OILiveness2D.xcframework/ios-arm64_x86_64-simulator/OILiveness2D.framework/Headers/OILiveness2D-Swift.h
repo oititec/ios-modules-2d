@@ -360,6 +360,7 @@ SWIFT_CLASS("_TtC12OILiveness2D31HybridFaceCaptchaViewController")
 
 
 
+
 #endif
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -726,6 +727,7 @@ SWIFT_CLASS("_TtC12OILiveness2D33HybridDocumentscopyViewController")
 SWIFT_CLASS("_TtC12OILiveness2D31HybridFaceCaptchaViewController")
 @interface HybridFaceCaptchaViewController : FaceCaptchaViewController
 @end
+
 
 
 
