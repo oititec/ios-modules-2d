@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.3.1](https://github.com/oititec/ios-modules-2d/releases/tag/2.3.1)
+_data: 02/09/2024_
+
+- **Melhorias**
+    - Correção da duplicidade de desafios no `FaceCaptcha`.
+
 ## [versão 2.3.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.3.0)
 _data: 05/07/2024_
 
