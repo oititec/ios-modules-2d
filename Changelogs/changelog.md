@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.4.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.4.0)
+_data: 23/10/2024_
+
+- **Melhorias**
+    - Integração com o Sentry.
+
 ## [versão 2.3.1](https://github.com/oititec/ios-modules-2d/releases/tag/2.3.1)
 _data: 02/09/2024_
 

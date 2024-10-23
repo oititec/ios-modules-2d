@@ -5,10 +5,13 @@
 import CommonCrypto
 import CoreLocation
 import Foundation
+import MetricKit
 import Network
+import OICommons
 import OINetwork
 @_exported import OISecurity
 import Security
+import Sentry
 import Swift
 import UIKit.UIDevice
 import UIKit
@@ -20,8 +23,7 @@ import _SwiftConcurrencyShims
   final public let longitude: Swift.Double
   @objc deinit
 }
-@_hasMissingDesignatedInitializers final public class GlobalExceptionHandler {
-  public static var shared: ((Foundation.NSException) -> Swift.Void)?
+@_hasMissingDesignatedInitializers final public class LegacyExceptionHandler {
   public static var exceptionCallback: ((OISecurity.ExceptionPayload) -> Swift.Void)?
   public static func start()
   @objc deinit
@@ -29,6 +31,12 @@ import _SwiftConcurrencyShims
 public struct SecurityPayload {
 }
 public struct SecurityEvent {
+}
+@_hasMissingDesignatedInitializers final public class ExceptionHandler {
+  public static let shared: OISecurity.ExceptionHandler
+  final public func configure(withTicket ticket: Swift.String? = nil, appKey: Swift.String, environment: OICommons.Environment, debugMode debugModeEnabled: Swift.Bool = false)
+  final public func updateProvider(_ provider: Swift.String)
+  @objc deinit
 }
 public struct CryptoManager {
   public static func encrypt(_ value: Foundation.NSData, withKey secretKey: Swift.String) -> Swift.String?
@@ -47,11 +55,11 @@ public enum PersistenceOption : Swift.String {
 }
 @_hasMissingDesignatedInitializers final public class SecurityManager {
   @objc deinit
-  public static func session(for sessionIdentifier: Swift.String, baseUrl: Swift.String) -> OISecurity.SecurityManager?
+  public static func session(for sessionIdentifier: Swift.String, environment: OICommons.Environment) -> OISecurity.SecurityManager?
   final public func requestLocation()
   final public func trackEvent(_ event: OISecurity.EventType)
   final public func uploadDeviceInfoAndLocation(appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, provider: Swift.String, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
-  final public func uploadData(with appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, provider: Swift.String, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
+  final public func uploadDeviceBehavior(with appKey: Swift.String, ticket: Swift.String? = nil, journeyId: Swift.String? = nil, autoClose: Swift.Bool = true, provider: Swift.String, options: [OISecurity.PersistenceOption : Swift.String] = [:], completion: ((Swift.String?) -> Swift.Void)? = nil)
 }
 extension OISecurity.SecurityManager : Swift.Hashable {
   public static func == (lhs: OISecurity.SecurityManager, rhs: OISecurity.SecurityManager) -> Swift.Bool
@@ -61,11 +69,11 @@ extension OISecurity.SecurityManager : Swift.Hashable {
   }
 }
 public protocol DebugLoggerProtocol {
-  func logDebugData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail)
+  func logData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail, provider: Swift.String)
 }
 @_hasMissingDesignatedInitializers final public class DebugLogger : OISecurity.DebugLoggerProtocol {
-  convenience public init(appKey: Swift.String, provider: Swift.String, baseUrl: Swift.String)
-  final public func logDebugData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail)
+  convenience public init(ticket: Swift.String, environment: OICommons.Environment)
+  final public func logData(forStep step: Swift.String, errorDetail: OINetwork.ErrorDetail, provider: Swift.String)
   @objc deinit
 }
 public enum EventType : Swift.String, Swift.CaseIterable {
