@@ -11,7 +11,6 @@ import OICommons
 import OINetwork
 @_exported import OISecurity
 import Security
-import Sentry
 import Swift
 import UIKit.UIDevice
 import UIKit

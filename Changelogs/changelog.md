@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 2.4.1](https://github.com/oititec/ios-modules-2d/releases/tag/2.4.1)
+_data: 03/12/2024_
+
+- **Melhorias**
+    - Correção na aplicação das telas customizadas no `FaceCaptcha`.
+
 ## [versão 2.4.0](https://github.com/oititec/ios-modules-2d/releases/tag/2.4.0)
 _data: 23/10/2024_
 
