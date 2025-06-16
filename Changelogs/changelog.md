@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 3.0.1](https://github.com/oititec/ios-modules-2d/releases/tag/3.0.1)
+_data: 16/06/2025_
+
+- **Melhorias**
+  - Remoção de chamada de API em desuso.
+
 ## [versão 3.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/3.0.0)
 
 _data: 01/05/2025_
