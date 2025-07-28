@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 3.0.2](https://github.com/oititec/ios-modules-2d/releases/tag/3.0.2)
+_data: 28/07/2025_
+
+- **Melhorias**
+  - Correção de referências internas.
+
 ## [versão 3.0.1](https://github.com/oititec/ios-modules-2d/releases/tag/3.0.1)
 _data: 16/06/2025_
 
