@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 3.1.0](https://github.com/oititec/ios-modules-2d/releases/tag/3.1.0)
+_data: 11/08/2025_
+
+- **Melhorias**
+  - Atualização da URL do Certiface em HML.
+
 ## [versão 3.0.2](https://github.com/oititec/ios-modules-2d/releases/tag/3.0.2)
 _data: 28/07/2025_
 
