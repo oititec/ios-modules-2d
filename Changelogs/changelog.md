@@ -1,5 +1,11 @@
 # Changelog
 
+## [versão 4.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/4.0.0)
+_data: 04/11/2025_
+
+- **Melhorias**
+  - Adição de um novo fluxo de CNH Digital no `Documentscopy`.
+
 ## [versão 3.1.0](https://github.com/oititec/ios-modules-2d/releases/tag/3.1.0)
 _data: 11/08/2025_
 
