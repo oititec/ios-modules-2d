@@ -1,10 +1,13 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
 // swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name OILiveness2D
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
 import AVFoundation
+import AVKit
 import CoreGraphics
 import DeveloperToolsSupport
 import Foundation
+import MobileCoreServices
 import OICommons
 import OIComponents
 @_exported import OILiveness2D
@@ -25,7 +28,11 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setLoadingBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setLoadingSpinner(withColor color: UIKit.UIColor?, width spinnerWidth: CoreFoundation.CGFloat? = nil, scaleFactor spinnerScaleFactor: Swift.Int? = nil) -> Self
+  final public func setLoadingSpinnerColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setLoadingSpinnerWidth(_ width: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setLoadingSpinnerScaleFactor(_ scaleFactor: Swift.Int) -> Self
 }
 public enum DocumentscopyError : Swift.Error {
   case invalidAppKey
@@ -42,66 +49,148 @@ public enum DocumentscopyError : Swift.Error {
     get
   }
 }
-public enum DocumentscopyCustomizationResultType {
-  case success
-  case tryAgain
-  case error
-  public static func == (a: OILiveness2D.DocumentscopyCustomizationResultType, b: OILiveness2D.DocumentscopyCustomizationResultType) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
 extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
-  final public func setResultBackgroundColor(_ color: UIKit.UIColor, forResultType resultType: OILiveness2D.DocumentscopyCustomizationResultType) -> Self
+  final public func setResultSuccessBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setResultImage(_ image: UIKit.UIImage?, forResultType resultType: OILiveness2D.DocumentscopyCustomizationResultType) -> Self
+  final public func setResultErrorBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setResultRetryBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setResultSuccessImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setResultErrorImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setResultRetryImage(_ image: UIKit.UIImage?) -> Self
   @discardableResult
   final public func setResultMessageFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setResultMessage(_ message: Swift.String, forResultType resultType: OILiveness2D.DocumentscopyCustomizationResultType) -> Self
+  final public func setResultSuccessMessage(_ message: Swift.String) -> Self
   @discardableResult
-  final public func setResultMessageColor(_ color: UIKit.UIColor, forResultType resultType: OILiveness2D.DocumentscopyCustomizationResultType) -> Self
+  final public func setResultErrorMessage(_ message: Swift.String) -> Self
   @discardableResult
-  final public func setResultTryAgainButton(withText text: Swift.String?, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setResultRetryMessage(_ message: Swift.String) -> Self
   @discardableResult
-  final public func setResultTryAgainButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setResultSuccessMessageColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setResultTryAgainButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setResultErrorMessageColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setResultTryAgainButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setResultRetryMessageColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setResultRetryButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setResultRetryButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setResultRetryButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setResultRetryButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setResultRetryButtonBorderColor(_ color: UIKit.UIColor) -> Self
 }
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class DocumentscopyViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor(unsafe) convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, showFeedback: Swift.Bool = true, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil, customInstructionView: (any OILiveness2D.DocumentscopyCustomInstructionView)? = nil, customView: (any OILiveness2D.DocumentscopyCustomView)? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: (any OILiveness2D.DocumentscopyCustomResultView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class DocumentscopyViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor @preconcurrency convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, showFeedback: Swift.Bool = true, customizationTheme: OILiveness2D.DocumentscopyCustomizationTheme? = nil, customInstructionView: (any OILiveness2D.DocumentscopyCustomInstructionView)? = nil, customView: (any OILiveness2D.DocumentscopyCustomView)? = nil, customLoadingView: OILiveness2D.DocumentscopyCustomLoadingView? = nil, customResultView: (any OILiveness2D.DocumentscopyCustomResultView)? = nil, customQrCodeView: (any OILiveness2D.DocumentscopyCustomQrCodeView)? = nil, customUploadView: (any OILiveness2D.DocumentscopyCustomUploadView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
   @objc deinit
 }
 extension OILiveness2D.DocumentscopyViewController : UIKit.UIGestureRecognizerDelegate {
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
 }
 extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPermissionTrackerDelegate {
-  @_Concurrency.MainActor(unsafe) public func trackViewDidAppear()
-  @_Concurrency.MainActor(unsafe) public func trackGoBackAction()
-  @_Concurrency.MainActor(unsafe) public func trackCheckPermissionAction()
-  @_Concurrency.MainActor(unsafe) public func trackGoToSettingsAction()
-  @_Concurrency.MainActor(unsafe) public func trackCloseAction()
+  @_Concurrency.MainActor @preconcurrency public func trackViewDidAppear()
+  @_Concurrency.MainActor @preconcurrency public func trackGoBackAction()
+  @_Concurrency.MainActor @preconcurrency public func trackCheckPermissionAction()
+  @_Concurrency.MainActor @preconcurrency public func trackGoToSettingsAction()
+  @_Concurrency.MainActor @preconcurrency public func trackCloseAction()
 }
 public struct DocumentscopyCustomizationTheme {
 }
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class FaceCaptchaViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor(unsafe) convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, showFeedback: Swift.Bool = true, customInstructionsView: (any OILiveness2D.FaceCaptchaCustomIntructionsView)? = nil, customLivenessView: (any OILiveness2D.FaceCaptchaCustomView)? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: (any OILiveness2D.FaceCaptchaCustomResultView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class FaceCaptchaViewController : UIKit.UINavigationController {
+  @_Concurrency.MainActor @preconcurrency convenience public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, showFeedback: Swift.Bool = true, customInstructionsView: (any OILiveness2D.FaceCaptchaCustomIntructionsView)? = nil, customLivenessView: (any OILiveness2D.FaceCaptchaCustomView)? = nil, customProcessResultView: OILiveness2D.FaceCaptchaCustomProcessResultView? = nil, customResultView: (any OILiveness2D.FaceCaptchaCustomResultView)? = nil, customCameraPermissionView: (any OILiveness2D.CustomCameraPermissionView)? = nil)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @objc deinit
 }
 extension OILiveness2D.FaceCaptchaViewController : UIKit.UIGestureRecognizerDelegate {
-  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIKit.UIGestureRecognizer) -> Swift.Bool
 }
 extension OILiveness2D.FaceCaptchaViewController : OIComponents.CheckCameraPermissionDelegate {
-  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
-  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor @preconcurrency public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor @preconcurrency public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
 }
 public struct HybridDocumentscopyCustomizationTheme {
+}
+extension OILiveness2D.DocumentscopyCustomizationBuilder {
+  @discardableResult
+  final public func setUploadBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadBackButtonIcon(_ icon: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setUploadBackButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadBackButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadBackButtonBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadCloseButtonIcon(_ icon: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setUploadCloseButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadCloseButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadCloseButtonBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadFileTitle(_ title: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadFileTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadFileTitleColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadFileDescription(_ description: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadFileDescriptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadFileDescriptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaContentColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaBorderWidth(_ width: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setUploadUploadAreaBorderRadius(_ radius: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setUploadAreaFilenameColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaFilenameFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadAreaFilenameBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaDeleteButtonIcon(_ icon: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setUploadAreaDeleteButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadSendButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadSendButtonNormalIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonNormalBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonNormalBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonDisabledIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonDisabledBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadSendButtonDisabledBorderColor(_ color: UIKit.UIColor) -> Self
 }
 public protocol DocumentscopyCustomResultView : UIKit.UIView {
   var resultButton: UIKit.UIButton! { get }
@@ -122,6 +211,14 @@ public enum FocusIndicator {
   case front
   case back
   public static func == (a: OILiveness2D.FocusIndicator, b: OILiveness2D.FocusIndicator) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum CameraPosition {
+  case back, front
+  public static func == (a: OILiveness2D.CameraPosition, b: OILiveness2D.CameraPosition) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
   public var hashValue: Swift.Int {
     get
@@ -158,7 +255,8 @@ public protocol FaceCaptchaCustomResultView : UIKit.UIView {
 }
 public protocol DocumentscopyCustomInstructionView : UIKit.UIView {
   var backButton: UIKit.UIButton! { get }
-  var continueButton: UIKit.UIButton! { get }
+  var physicalDocumentOption: UIKit.UIView! { get }
+  var digitalDocumentOption: UIKit.UIView! { get }
   func changeLoadingVisibility(to visibility: OILiveness2D.Visibility)
 }
 public protocol DocumentscopyCustomView : UIKit.UIView {
@@ -166,69 +264,103 @@ public protocol DocumentscopyCustomView : UIKit.UIView {
   var cameraMask: UIKit.UIView! { get }
   var backButton: UIKit.UIButton! { get }
   var closeButton: UIKit.UIButton! { get }
-  var backIndicatorView: UIKit.UIView! { get }
-  var frontIndicatorView: UIKit.UIView! { get }
   var instructionLabel: UIKit.UILabel! { get }
   var cameraVisualizer: UIKit.UIView! { get }
   var previewImageView: UIKit.UIImageView! { get }
   var captureButton: UIKit.UIButton! { get }
-  var usePictureButton: UIKit.UIButton! { get }
-  var takeNewPictureButton: UIKit.UIButton! { get }
+  var confirmButton: UIKit.UIButton! { get }
+  var retryButton: UIKit.UIButton! { get }
   func displayConfirmationSheet(visibility: OILiveness2D.Visibility, animated: Swift.Bool)
   func setFocus(to focusElement: OILiveness2D.FocusIndicator, animated: Swift.Bool)
-  func setUsePictureButtonTitle(to newTitle: Swift.String)
+  func setConfirmButtonTitle(to newTitle: Swift.String)
 }
 public protocol FaceCaptchaCustomIntructionsView : UIKit.UIView {
   var backButton: UIKit.UIButton! { get }
   var continueButton: UIKit.UIButton! { get }
 }
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency final public class CameraPreviewView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc override final public class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @objc deinit
+}
 extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPermissionDelegate {
-  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
-  @_Concurrency.MainActor(unsafe) public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor @preconcurrency public func checkCameraPermission(continueFrom cameraPermissionVC: UIKit.UIViewController)
+  @_Concurrency.MainActor @preconcurrency public func checkCameraPermission(close cameraPermissionVC: UIKit.UIViewController)
 }
 extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setCameraPermissionBackButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setCameraPermissionBackButtonColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionBackButtonIconColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionImage(_ cameraImage: UIKit.UIImage?, color imageColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionBackButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionTitle(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionBackButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionCaption(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionCameraImage(_ image: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setCameraPermissionCheckPermissionButton(withText text: Swift.String?, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionCameraImageColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionCheckPermissionButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionTitle(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCameraPermissionCheckPermissionButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionTitleColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionCheckPermissionButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCameraPermissionCaption(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCameraPermissionCaptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCaptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCameraPermissionCheckPermissionButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCameraPermissionCheckPermissionButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCameraPermissionCheckPermissionButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCheckPermissionButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCheckPermissionButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setCameraPermissionBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionBottomSheetShape(withColor color: UIKit.UIColor?, cornerRadius: CoreFoundation.CGFloat? = nil) -> Self
+  final public func setCameraPermissionBottomSheetColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionBottomSheetTitle(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionBottomSheetCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
   @discardableResult
-  final public func setCameraPermissionBottomSheetCaption(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionBottomSheetTitle(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCameraPermissionOpenSettingsButton(withText text: Swift.String?, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionBottomSheetTitleColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionOpenSettingsButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionBottomSheetTitleFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCameraPermissionOpenSettingsButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionBottomSheetCaption(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCameraPermissionOpenSettingsButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionBottomSheetCaptionColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCameraPermissionCloseButton(withText text: Swift.String?, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCameraPermissionBottomSheetCaptionFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCameraPermissionCloseButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionOpenSettingsButtonText(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCameraPermissionCloseButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionOpenSettingsButtonTextFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCameraPermissionCloseButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCameraPermissionOpenSettingsButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionOpenSettingsButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionOpenSettingsButtonBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCloseButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCameraPermissionCloseButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCameraPermissionCloseButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCloseButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCameraPermissionCloseButtonBorderColor(_ color: UIKit.UIColor) -> Self
 }
 @_hasMissingDesignatedInitializers final public class DocumentscopyCustomizationBuilder {
   public static func builder() -> OILiveness2D.DocumentscopyCustomizationBuilder
@@ -237,71 +369,138 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
 }
 public enum DocumentscopyResultType {
   case success
-  case tryAgain
+  case retry
   case error(OILiveness2D.DocumentscopyError)
 }
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
-  @_Concurrency.MainActor(unsafe) public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, showFeedback: Swift.Bool = true, customizationTheme hybridCustomizationTheme: OILiveness2D.HybridDocumentscopyCustomizationTheme? = nil)
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class HybridDocumentscopyViewController : OILiveness2D.DocumentscopyViewController {
+  @_Concurrency.MainActor @preconcurrency public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, showFeedback: Swift.Bool = true, customizationTheme hybridCustomizationTheme: OILiveness2D.HybridDocumentscopyCustomizationTheme? = nil)
   @objc deinit
 }
 public enum FaceCaptchaResultType {
   case success(OILiveness2D.FaceCaptchaSuccessModel)
   case error(OILiveness2D.FaceCaptchaError)
 }
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class CameraPreviewView : UIKit.UIView {
-  @_Concurrency.MainActor(unsafe) public var videoPreviewLayer: AVFoundation.AVCaptureVideoPreviewLayer {
-    get
-  }
-  @_Concurrency.MainActor(unsafe) public var session: AVFoundation.AVCaptureSession? {
-    get
-    set
-  }
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public class var layerClass: Swift.AnyClass {
-    @objc get
-  }
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
+extension OILiveness2D.DocumentscopyCustomizationBuilder {
+  @discardableResult
+  final public func setQrCodeBackButtonIcon(_ icon: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setQrCodeBackButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeBackButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeBackButtonBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeSquareTargetColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeBottomSheetColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeBottomSheetCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setQrCodeTitle(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setQrCodeTitleColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setQrCodeCaption(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setQrCodeCaptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeCaptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setQrCodeFileButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setQrCodeFileButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setQrCodeFileButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeFileButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setQrCodeFileButtonBorderColor(_ color: UIKit.UIColor) -> Self
 }
 extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setInstructionBackButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setInstructionBackButtonColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setInstructionBackButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionBackButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionBackButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setInstructionBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionLoadingColor(_ color: UIKit.UIColor) -> Self
-  @discardableResult
   final public func setInstructionContextImage(_ image: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setInstructionBottomSheet(withColor color: UIKit.UIColor?, radius: CoreFoundation.CGFloat? = nil) -> Self
+  final public func setInstructionLoadingColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionTitle(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setInstructionBottomSheetColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionCaption(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setInstructionBottomSheetCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
   @discardableResult
-  final public func setInstructionDocOptionImage(_ image: UIKit.UIImage?) -> Self
+  final public func setInstructionTitle(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setInstructionDocOptionBackgroundColor(_ color: UIKit.UIColor) -> Self
+  final public func setInstructionTitleColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionDocOptionTitle(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setInstructionTitleFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setInstructionDocOptionBorder(withColor color: UIKit.UIColor?, width borderWidth: CoreFoundation.CGFloat? = nil, radius cornerRadius: CoreFoundation.CGFloat? = nil) -> Self
+  final public func setInstructionCaption(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setInstructionDocOptionIcon(_ icon: UIKit.UIImage?, color iconColor: UIKit.UIColor? = nil) -> Self
+  final public func setInstructionCaptionColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionEnvOptionImage(_ image: UIKit.UIImage?) -> Self
+  final public func setInstructionCaptionFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setInstructionEnvOptionBackgroundColor(_ color: UIKit.UIColor) -> Self
+  final public func setInstructionPhysicalDocumentOptionImage(_ image: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setInstructionEnvOptionTitle(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setInstructionPhysicalDocumentOptionTitle(_ title: Swift.String) -> Self
   @discardableResult
-  final public func setInstructionEnvOptionBorder(withColor color: UIKit.UIColor?, width borderWidth: CoreFoundation.CGFloat? = nil, radius cornerRadius: CoreFoundation.CGFloat? = nil) -> Self
+  final public func setInstructionPhysicalDocumentOptionTitleColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setInstructionEnvOptionIcon(_ icon: UIKit.UIImage?, color iconColor: UIKit.UIColor? = nil) -> Self
+  final public func setInstructionPhysicalDocumentOptionTitleFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setInstructionContinueButton(backgroundColor: UIKit.UIColor? = nil, highlightedBackgroundColor: UIKit.UIColor? = nil, borderColor: UIKit.UIColor? = nil, highlightedBorderColor: UIKit.UIColor? = nil, contentColor: UIKit.UIColor? = nil, highlightedContentColor: UIKit.UIColor? = nil, textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setInstructionPhysicalDocumentOptionDescription(_ caption: Swift.String) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionDescriptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionDescriptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionCircleBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionBorderWidth(_ width: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setInstructionPhysicalDocumentOptionIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionTitle(_ title: Swift.String) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionTitleColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionDescription(_ caption: Swift.String) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionDescriptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionDescriptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionCircleBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionBorderWidth(_ width: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setInstructionDigitalDocumentOptionIconColor(_ color: UIKit.UIColor) -> Self
 }
 public protocol FaceCaptchaCustomView : UIKit.UIView {
   var cameraPreview: OILiveness2D.CameraPreviewView! { get }
@@ -321,29 +520,55 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setCaptureBackButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setCaptureBackButtonColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureBackButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureBackButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureBackButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setCaptureCloseButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setCaptureCloseButtonColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureCloseButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureCloseButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureCloseButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setCaptureFrontIndicatorText(_ text: Swift.String) -> Self
   @discardableResult
   final public func setCaptureFrontIndicatorColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureFrontIndicatorFocusedState(withImage image: UIKit.UIImage?, textColor: UIKit.UIColor? = nil, textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureFrontIndicatorFocusedStateTextColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureFrontIndicatorUnfocusedState(withImage image: UIKit.UIImage?, textColor: UIKit.UIColor? = nil, textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureFrontIndicatorFocusedStateTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCaptureFrontIndicatorFocusedStateImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setCaptureFrontIndicatorUnfocusedStateTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureFrontIndicatorUnfocusedStateTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCaptureFrontIndicatorUnfocusedStateImage(_ image: UIKit.UIImage?) -> Self
   @discardableResult
   final public func setCaptureBackIndicatorText(_ text: Swift.String) -> Self
   @discardableResult
   final public func setCaptureBackIndicatorColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureBackIndicatorFocusedState(withImage image: UIKit.UIImage?, textColor: UIKit.UIColor? = nil, textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureBackIndicatorFocusedStateTextColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureBackIndicatorUnfocusedState(withImage image: UIKit.UIImage?, textColor: UIKit.UIColor? = nil, textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureBackIndicatorFocusedStateTextFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCaptureInstructionGuideText(forFront frontText: Swift.String?, back backText: Swift.String? = nil) -> Self
+  final public func setCaptureBackIndicatorFocusedStateImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setCaptureBackIndicatorUnfocusedStateTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureBackIndicatorUnfocusedStateTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCaptureBackIndicatorUnfocusedStateImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setCaptureInstructionGuideFrontText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCaptureInstructionGuideBackText(_ text: Swift.String) -> Self
   @discardableResult
   final public func setCaptureInstructionConfirmationText(_ text: Swift.String) -> Self
   @discardableResult
@@ -351,37 +576,66 @@ extension OILiveness2D.DocumentscopyCustomizationBuilder {
   @discardableResult
   final public func setCaptureInstructionTextFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCapturePreviewBorderColor(forCaptured capturedColor: UIKit.UIColor?, uncapturedState uncapturedColor: UIKit.UIColor?) -> Self
+  final public func setCapturePreviewCapturedBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCapturePreviewUncapturedBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setCaptureBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setCaptureCaptureButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setCaptureCaptureButtonHighlightedStateColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureCaptureButtonNormalIconColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureCaptureButtonNormalStateColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureCaptureButtonNormalBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureCaptureButtonDisabledStateColors(forIcon iconColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureCaptureButtonNormalBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureBottomSheetShape(withColor color: UIKit.UIColor?, cornerRadius: CoreFoundation.CGFloat? = nil) -> Self
+  final public func setCaptureCaptureButtonDisabledIconColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureConfirmationMessage(withText text: Swift.String?, color textColor: UIKit.UIColor? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureCaptureButtonDisabledBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureTakeNewPictureButton(withText text: Swift.String?, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureCaptureButtonDisabledBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureTakeNewPictureButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureBottomSheetColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureTakeNewPictureButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureBottomSheetCornerRadius(_ radius: CoreFoundation.CGFloat) -> Self
   @discardableResult
-  final public func setCaptureTakeNewPictureButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureConfirmationMessageText(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCaptureUsePictureButton(withText text: Swift.String?, confirmationText: Swift.String? = nil, font textFont: UIKit.UIFont? = nil) -> Self
+  final public func setCaptureConfirmationMessageColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setCaptureUsePictureButtonHighlightedStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureConfirmationMessageFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setCaptureUsePictureButtonNormalStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureRetryButtonText(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setCaptureUsePictureButtonDisabledStateColors(forText textColor: UIKit.UIColor?, background backgroundColor: UIKit.UIColor? = nil, border borderColor: UIKit.UIColor? = nil) -> Self
+  final public func setCaptureRetryButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCaptureRetryButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureRetryButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureRetryButtonBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonConfirmationText(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonTextFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setCaptureConfirmButtonBorderColor(_ color: UIKit.UIColor) -> Self
+}
+public protocol DocumentscopyCustomUploadView : UIKit.UIView {
+  var backButton: UIKit.UIButton! { get }
+  var closeButton: UIKit.UIButton! { get }
+  var uploadArea: UIKit.UIView! { get }
+  var deleteButton: UIKit.UIButton! { get }
+  var sendButton: UIKit.UIButton! { get }
+  func displayFileContainer(with fileName: Swift.String)
+  func hideFileContainer()
 }
 public protocol DocumentscopyDelegate : AnyObject {
   func handleDocumentscopyCompleted()
@@ -393,15 +647,25 @@ public protocol FaceCaptchaDelegate : AnyObject {
   func handleError(error: OILiveness2D.FaceCaptchaError)
   func handleCanceled()
 }
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HybridFaceCaptchaViewController : OILiveness2D.FaceCaptchaViewController {
-  @_Concurrency.MainActor(unsafe) public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, showFeedback: Swift.Bool = true, customAppearance: OIComponents.HybridViewAppearance? = nil)
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class HybridFaceCaptchaViewController : OILiveness2D.FaceCaptchaViewController {
+  @_Concurrency.MainActor @preconcurrency public init(appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.FaceCaptchaDelegate, showFeedback: Swift.Bool = true, customAppearance: OIComponents.HybridViewAppearance? = nil)
   @objc deinit
+}
+public protocol DocumentscopyCustomQrCodeView : UIKit.UIView {
+  var cameraPreview: OILiveness2D.CameraPreviewView! { get }
+  var cameraMask: UIKit.UIView! { get }
+  var cameraVisualizer: UIKit.UIView! { get }
+  var backButton: UIKit.UIButton! { get }
+  var modalContainer: UIKit.UIView! { get }
+  var fileButton: UIKit.UIButton! { get }
+  func displayBottomSheet(animated: Swift.Bool)
+  func hideBottomSheet(animated: Swift.Bool)
 }
 extension OILiveness2D.DocumentscopyError : Swift.Equatable {}
 extension OILiveness2D.DocumentscopyError : Swift.Hashable {}
-extension OILiveness2D.DocumentscopyCustomizationResultType : Swift.Equatable {}
-extension OILiveness2D.DocumentscopyCustomizationResultType : Swift.Hashable {}
 extension OILiveness2D.FocusIndicator : Swift.Equatable {}
 extension OILiveness2D.FocusIndicator : Swift.Hashable {}
+extension OILiveness2D.CameraPosition : Swift.Equatable {}
+extension OILiveness2D.CameraPosition : Swift.Hashable {}
 extension OILiveness2D.FaceCaptchaError : Swift.Equatable {}
 extension OILiveness2D.FaceCaptchaError : Swift.Hashable {}
