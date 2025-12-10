@@ -1,5 +1,12 @@
 # Changelog
 
+## [versão 5.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/5.0.0)
+_data: 10/12/2025_
+
+- **Melhorias**
+  - Ajustes na captura do documento.
+  - Alterações nos _builders_ de customização do fluxo de documento.
+
 ## [versão 4.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/4.0.0)
 _data: 04/11/2025_
 
