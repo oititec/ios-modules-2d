@@ -89,8 +89,17 @@ public enum DocumentscopyError : Swift.Error {
   final public func setRetryButtonBorderColor(_ color: UIKit.UIColor) -> Self
   @objc deinit
 }
+public enum AdditionalDocumentOption : Swift.Hashable {
+  case digitalDocument
+  case uploadDocument
+  public static func == (a: OILiveness2D.AdditionalDocumentOption, b: OILiveness2D.AdditionalDocumentOption) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class DocumentscopyViewController : UIKit.UINavigationController {
-  @_Concurrency.MainActor @preconcurrency convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, showFeedback: Swift.Bool = true, customViews: OILiveness2D.DocumentscopyCustomViews? = nil, customization: OILiveness2D.DocumentscopyCustomization? = nil)
+  @_Concurrency.MainActor @preconcurrency convenience public init(ticket: Swift.String? = nil, appKey: Swift.String, environment: OILiveness2D.Environment, delegate: any OILiveness2D.DocumentscopyDelegate, additionalOptions: Swift.Set<OILiveness2D.AdditionalDocumentOption> = .init(), showFeedback: Swift.Bool = true, customViews: OILiveness2D.DocumentscopyCustomViews? = nil, customization: OILiveness2D.DocumentscopyCustomization? = nil)
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
   @objc deinit
 }
@@ -178,31 +187,51 @@ public struct HybridDocumentscopyCustomization {
   @discardableResult
   final public func setFileDescriptionColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setUploadAreaBackgroundColor(_ color: UIKit.UIColor) -> Self
+  final public func setUploadAreaIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setUploadAreaContentColor(_ color: UIKit.UIColor) -> Self
+  final public func setUploadAreaIconUnselectedColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setUploadAreaText(_ text: Swift.String) -> Self
+  final public func setUploadAreaIconSelectedColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setUploadAreaTextFont(_ font: UIKit.UIFont) -> Self
+  final public func setUploadAreaCallout(_ text: Swift.String) -> Self
   @discardableResult
-  final public func setUploadAreaImage(_ image: UIKit.UIImage?) -> Self
+  final public func setUploadAreaCalloutFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setUploadAreaBorderColor(_ color: UIKit.UIColor) -> Self
+  final public func setUploadAreaTitle(_ text: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadAreaTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadAreaTextColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaBackgroundUnselectedColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaBackgroundSelectedColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaBorderUnselectedColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadAreaBorderSelectedColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setUploadAreaBorderWidth(_ width: CoreFoundation.CGFloat) -> Self
   @discardableResult
   final public func setUploadAreaBorderRadius(_ radius: CoreFoundation.CGFloat) -> Self
   @discardableResult
-  final public func setAreaFilenameColor(_ color: UIKit.UIColor) -> Self
+  final public func setFilenameColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setAreaFilenameFont(_ font: UIKit.UIFont) -> Self
+  final public func setFilenameFont(_ font: UIKit.UIFont) -> Self
   @discardableResult
-  final public func setAreaFilenameBackgroundColor(_ color: UIKit.UIColor) -> Self
+  final public func setFilenameBackgroundColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
-  final public func setAreaDeleteButtonIcon(_ icon: UIKit.UIImage?) -> Self
+  final public func setDeleteButtonIcon(_ icon: UIKit.UIImage?) -> Self
   @discardableResult
-  final public func setAreaDeleteButtonIconColor(_ color: UIKit.UIColor) -> Self
+  final public func setDeleteButtonIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setFeedbackImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setFeedbackTitle(_ title: Swift.String) -> Self
+  @discardableResult
+  final public func setFeedbackTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setFeedbackTitleColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setSendButtonText(_ text: Swift.String) -> Self
   @discardableResult
@@ -275,8 +304,17 @@ public protocol FaceCaptchaCustomResultView : UIKit.UIView {
 public protocol DocumentscopyCustomInstructionView : UIKit.UIView {
   var backButton: UIKit.UIButton! { get }
   var physicalDocumentOption: UIKit.UIView! { get }
-  var digitalDocumentOption: UIKit.UIView! { get }
+  var digitalDocumentOption: UIKit.UIView? { get }
+  var uploadDocumentOption: UIKit.UIView? { get }
   func changeLoadingVisibility(to visibility: OILiveness2D.Visibility)
+}
+extension OILiveness2D.DocumentscopyCustomInstructionView {
+  public var digitalDocumentOption: UIKit.UIView? {
+    get
+  }
+  public var uploadDocumentOption: UIKit.UIView? {
+    get
+  }
 }
 public protocol DocumentscopyCustomCaptureView : UIKit.UIView {
   var cameraPreview: OILiveness2D.CameraPreviewView! { get }
@@ -389,7 +427,7 @@ extension OILiveness2D.DocumentscopyViewController : OIComponents.CheckCameraPer
   @discardableResult
   final public func setCameraPermissionCustomization(_ builderHandler: @escaping (_ cameraPermissionBuilder: OILiveness2D.DocumentscopyCameraPermissionCustomizationBuilder) -> OILiveness2D.DocumentscopyCameraPermissionCustomizationBuilder) -> Self
   @discardableResult
-  final public func setCaptureCustomization(_ builderHandler: @escaping (_ instructionBuilder: OILiveness2D.DocumentscopyCaptureCustomizationBuilder) -> OILiveness2D.DocumentscopyCaptureCustomizationBuilder) -> Self
+  final public func setCaptureCustomization(_ builderHandler: @escaping (_ captureBuilder: OILiveness2D.DocumentscopyCaptureCustomizationBuilder) -> OILiveness2D.DocumentscopyCaptureCustomizationBuilder) -> Self
   @discardableResult
   final public func setQrCodeCustomization(_ builderHandler: @escaping (_ qrCodeBuilder: OILiveness2D.DocumentscopyQrCodeCustomizationBuilder) -> OILiveness2D.DocumentscopyQrCodeCustomizationBuilder) -> Self
   @discardableResult
@@ -535,6 +573,32 @@ public enum FaceCaptchaResultType {
   final public func setDigitalDocumentOptionBorderColor(_ color: UIKit.UIColor) -> Self
   @discardableResult
   final public func setDigitalDocumentOptionIconColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionImage(_ image: UIKit.UIImage?) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionTitle(_ title: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionTitleColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionTitleFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionDescription(_ caption: Swift.String) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionDescriptionColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionDescriptionFont(_ font: UIKit.UIFont) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionCircleBackgroundColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionBorderRadius(_ radius: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionBorderWidth(_ width: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionBorderColor(_ color: UIKit.UIColor) -> Self
+  @discardableResult
+  final public func setUploadDocumentOptionIconColor(_ color: UIKit.UIColor) -> Self
   @objc deinit
 }
 public protocol FaceCaptchaCustomView : UIKit.UIView {
@@ -692,7 +756,6 @@ public protocol DocumentscopyCustomQrCodeView : UIKit.UIView {
   var cameraMask: UIKit.UIView! { get }
   var cameraVisualizer: UIKit.UIView! { get }
   var backButton: UIKit.UIButton! { get }
-  var modalContainer: UIKit.UIView! { get }
   var fileButton: UIKit.UIButton! { get }
   func displayBottomSheet(animated: Swift.Bool)
   func hideBottomSheet(animated: Swift.Bool)

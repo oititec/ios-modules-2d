@@ -1,5 +1,14 @@
 # Changelog
 
+## [versão 6.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/6.0.0)
+_data: 10/03/2025_
+
+- **Melhorias**
+  - Alterações nos _builders_ de customização do fluxo de documento.
+  - Adição de uma nova opção de envio de documento.
+  
+_O guia de migração pode ser [acessado aqui](../MigrationGuide/5.0.0_to_6.0.0.md)_
+
 ## [versão 5.0.0](https://github.com/oititec/ios-modules-2d/releases/tag/5.0.0)
 _data: 10/12/2025_
 
